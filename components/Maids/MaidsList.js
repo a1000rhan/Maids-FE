@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import { Avatar, Button, ScrollView, Input } from "native-base";
-import { Image, Dimensions, StyleSheet, Text, View } from "react-native";
+import { Avatar, Button, Input } from "native-base";
+import {
+  Image,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import data from "../../data";
 import MaidItem from "./MaidItem";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -52,9 +60,11 @@ const MaidsList = ({ navigation }) => {
         />
       </View>
       <View style={styles.bg}>
-        <ScrollView>
-          <View style={styles.cards}>{maidsArr}</View>
-        </ScrollView>
+        <SafeAreaView>
+          <ScrollView style={styles.scroll}>
+            <View style={styles.cards}>{maidsArr}</View>
+          </ScrollView>
+        </SafeAreaView>
       </View>
     </View>
   );
@@ -98,6 +108,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     backgroundColor: "#F2F2F2",
   },
+
   searchIcon: {
     borderRadius: 30,
     width: 35,
@@ -107,7 +118,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
+  scroll: {
+    marginBottom: 420,
+  },
   cards: {
     display: "flex",
     justifyContent: "center",

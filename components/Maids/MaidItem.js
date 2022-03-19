@@ -24,7 +24,7 @@ const MaidItem = ({ maid, navigation }) => {
         <View>
           <Text style={styles.username}>{maid.name}</Text>
           <Text style={styles.price}>{maid.price} KD / H</Text>
-          <Text>
+          <Text style={styles.country}>
             <Icon color="#6867AC" name="flag" />
             &nbsp;{maid.nationality}
           </Text>
@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#6867AC",
+  },
+  country: {
+    marginTop: 10,
   },
   btn: {
     height: 45,

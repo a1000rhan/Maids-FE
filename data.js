@@ -34,6 +34,34 @@ const data = [
     nationality: "Indian",
     languages: ["Arabic", "English"],
   },
+  {
+    _id: 6,
+    name: "Salma",
+    price: 7,
+    nationality: "Indian",
+    languages: ["Arabic", "English"],
+  },
+  {
+    _id: 7,
+    name: "Salma",
+    price: 7,
+    nationality: "Indian",
+    languages: ["Arabic", "English"],
+  },
+  {
+    _id: 8,
+    name: "Salma",
+    price: 7,
+    nationality: "Indian",
+    languages: ["Arabic", "English"],
+  },
+  {
+    _id: 9,
+    name: "Thorya",
+    price: 7,
+    nationality: "Indian",
+    languages: ["Arabic", "English"],
+  },
 ];
 
 export default data;
