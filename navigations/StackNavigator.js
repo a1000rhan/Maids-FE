@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../components/Home";
 import MaidsList from "../components/Maids/MaidsList";
 import DrawerNavigator from "./DrawerNavigator";
+import MaidDetails from "../components/Maids/MaidDetails";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -19,6 +20,11 @@ const StackNavigator = () => {
         name="List"
         options={{ headerShown: false }}
         component={DrawerNavigator}
+      />
+      <Stack.Screen
+        name="Details"
+        component={MaidDetails}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

@@ -1,32 +1,38 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import { Avatar, Button, ScrollView, Input } from "native-base";
 
-const MaidItem = ({ maid }) => {
+const MaidItem = ({ maid, navigation }) => {
   return (
-    <View style={styles.card}>
-      <Avatar
-        source={{
-          uri: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
-        }}
-        w={100}
-        h={100}
-        m={3}
-      />
+    <Pressable
+      onPress={() => {
+        navigation.navigate("Details");
+      }}
+    >
+      <View style={styles.card}>
+        <Avatar
+          source={{
+            uri: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
+          }}
+          w={100}
+          h={100}
+          m={3}
+        />
 
-      <View>
-        <Text style={styles.username}>{maid.name}</Text>
-        <Text style={styles.price}>{maid.price} KD / H</Text>
-        <Text>
-          <Icon color="#6867AC" name="flag" />
-          &nbsp;{maid.nationality}
-        </Text>
+        <View>
+          <Text style={styles.username}>{maid.name}</Text>
+          <Text style={styles.price}>{maid.price} KD / H</Text>
+          <Text>
+            <Icon color="#6867AC" name="flag" />
+            &nbsp;{maid.nationality}
+          </Text>
+        </View>
+
+        <Button style={styles.btn}>Book</Button>
       </View>
-
-      <Button style={styles.btn}>Book</Button>
-    </View>
+    </Pressable>
   );
 };
 

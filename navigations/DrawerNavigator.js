@@ -5,12 +5,12 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
-  DrawerItem,
 } from "@react-navigation/drawer";
 import MaidsList from "../components/Maids/MaidsList";
 import { Avatar } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
 import User from "../components/User/User";
+import MaidDetails from "../components/Maids/MaidDetails";
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -32,7 +32,6 @@ function CustomDrawerContent(props) {
           alignSelf: "center",
         }}
       />
-
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
@@ -54,12 +53,8 @@ const DrawerNavigator = () => {
           },
           drawerActiveBackgroundColor: "#E7E6FF",
           drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-          headerTintColor: "white",
-          headerStyle: {
-            backgroundColor: "#6867AC",
-            height: 230,
-            borderRadius: 20,
-          },
+
+          headerShown: false,
           headerTitleStyle: { fontSize: 40, color: "white" },
         }}
       />

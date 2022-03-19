@@ -7,8 +7,8 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.bg}>
       <SafeAreaView style={styles.container}>
-        <Text>Because We Care About You</Text>
-        <Text>We can Give you A Hand</Text>
+        <Text style={styles.subtitle}>Because We Care About You</Text>
+        <Text style={styles.subtitle}>We can Give you A Hand</Text>
         <Text style={styles.title}>Helping Hand</Text>
         <Image
           style={{ width: 400, height: 400 }}
@@ -34,10 +34,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  subtitle: {
+    color: "#D0D0D0",
+    marginTop: 14,
+    fontWeight: "bold",
+    fontSize: 15,
+  },
   title: {
     color: "white",
     fontSize: 35,
     fontWeight: "bold",
+    marginTop: 20,
   },
   homeImage: {
     width: 200,
@@ -49,6 +56,7 @@ const styles = StyleSheet.create({
     height: 63,
     color: "black",
     borderRadius: 20,
+    marginTop: 30,
   },
   btnText: {
     fontWeight: "bold",

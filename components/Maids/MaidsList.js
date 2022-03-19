@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Avatar, Button, ScrollView, Input } from "native-base";
-import { StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import { Image, Dimensions, StyleSheet, Text, View } from "react-native";
 import data from "../../data";
 import MaidItem from "./MaidItem";
+import Icon from "react-native-vector-icons/Ionicons";
 
-const MaidsList = () => {
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
+const MaidsList = ({ navigation }) => {
   const [query, setQuery] = useState("");
   const maidsArr = data
     .filter(
@@ -13,10 +16,12 @@ const MaidsList = () => {
         maid.name.toLowerCase().includes(query.toLowerCase()) ||
         maid.price.toString().includes(query)
     )
-    .map((maid) => <MaidItem maid={maid} key={maid._id} />);
+    .map((maid) => (
+      <MaidItem maid={maid} key={maid._id} navigation={navigation} />
+    ));
 
   return (
-    <View style={styles.bg}>
+    <View>
       <View style={styles.searchBar}>
         <Input
           w={350}
@@ -32,9 +37,25 @@ const MaidsList = () => {
           }
         />
       </View>
-      <ScrollView>
-        <View style={styles.cards}>{maidsArr}</View>
-      </ScrollView>
+      <View style={styles.header}>
+        <View style={styles.icon}>
+          <Icon
+            color={"white"}
+            name="reorder-three"
+            size={30}
+            onPress={() => navigation.toggleDrawer()}
+          />
+        </View>
+        <Image
+          style={styles.topImg}
+          source={require("../../assets/1995438.png")}
+        />
+      </View>
+      <View style={styles.bg}>
+        <ScrollView>
+          <View style={styles.cards}>{maidsArr}</View>
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -42,13 +63,33 @@ const MaidsList = () => {
 export default MaidsList;
 
 const styles = StyleSheet.create({
+  header: {
+    backgroundColor: "#6867AC",
+    height: 230,
+    borderRadius: 20,
+    display: "flex",
+
+    flexDirection: "row",
+  },
+  icon: {
+    marginTop: 50,
+    marginLeft: 15,
+    zIndex: 10,
+  },
+  topImg: {
+    position: "absolute",
+    marginTop: 30,
+    marginLeft: windowWidth / 5,
+  },
   bg: {
     backgroundColor: "#FFFAFC",
     height: "100%",
     width: "100%",
   },
   searchBar: {
-    marginTop: 10,
+    position: "absolute",
+    marginTop: windowHeight / 4,
+    zIndex: 20,
     alignSelf: "center",
     borderRadius: 20,
     shadowColor: "#171717",
