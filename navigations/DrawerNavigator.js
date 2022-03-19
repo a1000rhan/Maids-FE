@@ -11,7 +11,6 @@ import MaidsList from "../components/Maids/MaidsList";
 import { Avatar } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
 import User from "../components/User/User";
-import Maid from "../assets/1995438.png";
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -50,12 +49,12 @@ const DrawerNavigator = () => {
         name="Maids"
         component={MaidsList}
         options={{
-          drawerActiveBackgroundColor: "#E7E6FF",
-          drawerLabelStyle: { color: "#6867AC" },
-          headerTintColor: "white",
           drawerIcon: ({ color }) => {
             <Icon name="home-outline" size={22} color={color} />;
           },
+          drawerActiveBackgroundColor: "#E7E6FF",
+          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+          headerTintColor: "white",
           headerStyle: {
             backgroundColor: "#6867AC",
             height: 230,
@@ -67,7 +66,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         options={{
           drawerActiveBackgroundColor: "#E7E6FF",
-          drawerLabelStyle: { color: "#6867AC" },
+          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
           headerTintColor: "white",
 
           headerStyle: {
