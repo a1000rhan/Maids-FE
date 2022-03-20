@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class AuthStore {
   user = null;
-  // loading = true;
+  loading = true;
 
   constructor() {
     makeAutoObservable(this, {});
@@ -17,10 +17,15 @@ class AuthStore {
     this.user = decode(token);
   };
 
-  signIn = async (user) => {
+  signIn = async (user,navigation) => {
+    console.log("🚀 ~ file: authStore.js ~ line 21 ~ AuthStore ~ signIn= ~ navigation", navigation)
     try {
-      const resp = await api.post("/signin", user);
+      const resp = await api.post("/Signin", user);
+      console.log("🚀 ~ file: authStore.js ~ line 23 ~ AuthStore ~ signIn= ~ resp", resp.data)
+      
       this.setUser(resp.data.token);
+      this.loading=false;
+      navigation.navigate("Maids")
     } catch (error) {
       console.log(
         "🚀 ~ file: authStore.js ~ line 25 ~ AuthStore ~ signIn= ~ error",
@@ -33,6 +38,8 @@ class AuthStore {
     try {
       const resp = await api.post("/signup", user);
       this.setUser(resp.data.token);
+      this.loading=false;
+      navigation.navigate("Maids")
       await profileStore.assignProfileToUser();
     } catch (error) {
       console.log(

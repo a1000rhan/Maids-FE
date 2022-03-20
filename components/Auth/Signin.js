@@ -17,14 +17,17 @@ import {
   import { observer } from "mobx-react";
   
   const Signin = ({ navigation }) => {
+  console.log("🚀 ~ file: Signin.js ~ line 20 ~ Signin ~ navigation", navigation)
     const [user, setUser] = useState({
       username: "",
       password: "",
     });
-    const handleSubmit = async () => {
-      await authStore.signIn(user);
-      if (authStore.user) navigation.replace("HomeScreen");
+    const handleSubmit =  () => {
+        
+       authStore.signIn(user,navigation);
+     
     };
+    
   
     return (
       <Center w="100%">
@@ -42,9 +45,11 @@ import {
           </Heading>
   
           <VStack space={3} mt="5">
-            <FormControl>
+            <FormControl >
               <FormControl.Label>Username</FormControl.Label>
               <Input
+              borderWidth={1}
+              borderColor="#712B75"
                 onChangeText={(value) => setUser({ ...user, username: value })}
               />
             </FormControl>
@@ -52,6 +57,8 @@ import {
               <FormControl.Label>Password</FormControl.Label>
               <Input
                 type="password"
+                borderWidth={1}
+              borderColor="#712B75"
                 onChangeText={(value) => setUser({ ...user, password: value })}
               />
             </FormControl>
@@ -100,7 +107,7 @@ import {
     btn: {
       height: 50,
       width: 120,
-      backgroundColor: COLORS.primary,
+      backgroundColor: COLORS.main,
       marginTop: 20,
       borderRadius: 7,
       justifyContent: "center",
