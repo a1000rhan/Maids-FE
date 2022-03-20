@@ -9,16 +9,18 @@ import {
   Input,
   useToast,
   VStack,
-  Text,
-  View,
-  CheckBox
 } from "native-base";
 import { StyleSheet } from "react-native";
 import COLORS from "./color"
 import authStore from "../../authStore";
+import CheckBox from "./CheckBox";
+
+
+
 
 const Signup = ({ navigation }) => {
-    const [isSelected, setSelection] = useState(false);
+    const [maid, setMaid] = useState(false);
+      
   const toast = useToast();
   const [user, setUser] = useState({
     username: "",
@@ -28,7 +30,7 @@ const Signup = ({ navigation }) => {
 
   const handleSubmit = async () => {
     await authStore.signUp(user);
-    if (authStore.user) navigation.replace("HomeScreen");
+    if (authStore.user) navigation.replace("List");
   };
   return (
     <Center w="100%">
@@ -49,6 +51,8 @@ const Signup = ({ navigation }) => {
           <FormControl>
             <FormControl.Label>Username</FormControl.Label>
             <Input
+            borderWidth={1}
+            borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, username: value })}
             />
           </FormControl>
@@ -57,14 +61,38 @@ const Signup = ({ navigation }) => {
             <FormControl.Label>Email</FormControl.Label>
             <Input
               type="email"
+              borderWidth={1}
+              borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, email: value })}
             />
           </FormControl>
-          
+
+          {/* <FormControl>
+            <FormControl.Label>FullName</FormControl.Label>
+            <Input
+              borderWidth={1}
+              borderColor="#712B75"
+              onChangeText={(value) => setUser({ ...user, fullname: value })}
+            />
+          </FormControl> */}
+
+          {/* <FormControl>
+            <FormControl.Label>Address</FormControl.Label>
+            <Input
+              type="email"
+              borderWidth={1}
+              borderColor="#712B75"
+              onChangeText={(value) => setUser({ ...user, address: value })}
+            />
+          </FormControl> */}
+
+                  
           <FormControl>
             <FormControl.Label>Password</FormControl.Label>
             <Input
               type="password"
+              borderWidth={1}
+              borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, password: value })}
             />
           </FormControl>
@@ -73,25 +101,31 @@ const Signup = ({ navigation }) => {
             <FormControl.Label>Confirm Password</FormControl.Label>
             <Input
               type="password"
+              borderWidth={1}
+              borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, confirmpassword: value })}
             />
           </FormControl>
 
-          {/* <FormControl>
-             <View style={style.container}>
-      <View style={style.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={style.checkbox}
-        />
-        <Text style={style.label}>Maid</Text>
-      </View>
-      <Text>User</Text>
-             </View>
-</FormControl> */}
-         
+       <FormControl>   
+       <FormControl.Label>Select your user type:</FormControl.Label>
 
+       
+          
+       <CheckBox
+                onPress={() => setMaid(!maid)}
+                title="Maid"
+                isChecked={maid}
+             
+              />
+              <CheckBox
+                onPress={() => setUser(!user)}
+                title="User"
+                isChecked={user}
+                
+              />
+              
+    </FormControl>  
           {/* <FormControl>
             <FormControl.Label>Email</FormControl.Label>
             <Input

@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import User from "../components/User/User";
 import MaidDetails from "../components/Maids/MaidDetails";
 import Signup from "../components/Auth/Signup";
+import Signin from "../components/Auth/Signin";
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -92,6 +93,23 @@ const DrawerNavigator = () => {
         }}
         name="Signup"
         component={Signup}
+      />
+      <Drawer.Screen
+        options={{
+          drawerActiveBackgroundColor: "#E7E6FF",
+          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+          headerTintColor: "white",
+
+          headerStyle: {
+            backgroundColor: "#6867AC",
+            height: 230,
+            borderRadius: 20,
+          },
+
+          headerTitleStyle: { fontSize: 40, color: "white" },
+        }}
+        name="Signin"
+        component={Signin}
       />
     </Drawer.Navigator>
   );
