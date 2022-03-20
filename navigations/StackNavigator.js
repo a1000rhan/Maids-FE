@@ -5,6 +5,8 @@ import Home from "../components/Home";
 import MaidsList from "../components/Maids/MaidsList";
 import DrawerNavigator from "./DrawerNavigator";
 import MaidDetails from "../components/Maids/MaidDetails";
+import Signup from "../components/Auth/Signup";
+import Signin from "../components/Auth/Signin";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -24,6 +26,16 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Details"
         component={MaidDetails}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Signin"
+        component={Signin}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
