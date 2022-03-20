@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 
     flexDirection: "row",
   },
-  icon: { position: "absolute", marginTop: 50, marginLeft: 30, zIndex: 10 },
+  icon: { position: "absolute", marginTop: 50, marginLeft: 15, zIndex: 10 },
 
   details: {
     display: "flex",
