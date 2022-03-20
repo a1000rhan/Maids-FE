@@ -5,13 +5,9 @@ const data = [
     price: 5,
     nationality: "Indian",
     languages: ["Arabic"],
-    skills: ["Child Care", "Light cleaning", "Companion care", "Laundry"],
+    skills: ["Child Care", "Light cleaning", "Laundry", "Meal Perepation"],
+    experience: 6,
     availability: [
-      {
-        day: "SAT",
-        timeStart: "2022-04-23T18:25:43.511Z",
-        timeEnd: "2022-04-10T18:25:44.511Z",
-      },
       {
         day: "SUN",
         timeStart: "2022-03-10T18:25:44.511Z",
@@ -37,15 +33,11 @@ const data = [
         timeStart: "2022-03-10T18:25:44.511Z",
         timeEnd: "2022-04-10T18:25:44.511Z",
       },
-      {
-        day: "FRI",
-        timeStart: "2022-03-10T18:25:44.511Z",
-        timeEnd: "2022-04-10T18:25:44.511Z",
-      },
     ],
-    experience: 6,
-    slug: "mary",
+    about:
+      "Maid that has been working in Kuwait for the past 10 years and likes to take care of kids",
   },
+
   {
     _id: 2,
     name: "Sarah",

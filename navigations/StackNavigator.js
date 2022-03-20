@@ -24,6 +24,11 @@ const StackNavigator = () => {
         component={DrawerNavigator}
       />
       <Stack.Screen
+        name="Profile"
+        options={{ headerShown: false }}
+        component={DrawerNavigator}
+      />
+      <Stack.Screen
         name="Details"
         component={MaidDetails}
         options={{ headerShown: false }}
