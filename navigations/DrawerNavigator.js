@@ -11,6 +11,7 @@ import { Avatar } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
 import User from "../components/User/User";
 import MaidDetails from "../components/Maids/MaidDetails";
+import MaidProfile from "../components/Maids/MaidProfile";
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -74,6 +75,16 @@ const DrawerNavigator = () => {
         }}
         name="User"
         component={User}
+      />
+      <Drawer.Screen
+        options={{
+          drawerActiveBackgroundColor: "#E7E6FF",
+          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+          headerTintColor: "white",
+          headerShown: false,
+        }}
+        name="Profile"
+        component={MaidProfile}
       />
     </Drawer.Navigator>
   );
