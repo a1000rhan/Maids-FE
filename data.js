@@ -7,14 +7,43 @@ const data = [
     languages: ["Arabic"],
     skills: ["Child Care", "Light cleaning", "Companion care", "Laundry"],
     availability: [
-      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
-      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
-      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
-      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
-      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SAT",
+        timeStart: "2022-04-23T18:25:43.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "MON",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "TUS",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "WED",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "THU",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "FRI",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "mary",
   },
   {
@@ -25,12 +54,33 @@ const data = [
     languages: ["Arabic"],
     skills: ["Child Care", "Light cleaning", "Laundry", "Meal Perepation"],
     availability: [
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
-      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
-      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
-      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "MON",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "TUS",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "WED",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "THU",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "sarah",
   },
   {
@@ -41,10 +91,19 @@ const data = [
     languages: ["Arabic", "English"],
     skills: ["Child Care", "Light cleaning", "Companion care", "Laundry"],
     availability: [
-      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+      {
+        day: "SAT",
+        timeStart: "2022-04-23T18:25:43.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
 
-      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "FRI",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "nora",
   },
   {
@@ -55,10 +114,23 @@ const data = [
     languages: ["Arabic", "English"],
     skills: ["Light cleaning", "Companion care", "Laundry", "Meal Perepation"],
     availability: [
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
-      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "MON",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "TUS",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "yaya",
   },
   {
@@ -69,14 +141,43 @@ const data = [
     languages: ["Arabic", "English"],
     skills: ["Child Care", "Light cleaning", "Meal Perepation"],
     availability: [
-      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
-      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
-      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
-      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
-      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SAT",
+        timeStart: "2022-04-23T18:25:43.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "MON",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "TUS",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "WED",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "THU",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "FRI",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "salma",
   },
   {
@@ -87,11 +188,28 @@ const data = [
     languages: ["Arabic", "English"],
     skills: ["Child Care"],
     availability: [
-      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
-      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SAT",
+        timeStart: "2022-04-23T18:25:43.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "THU",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "FRI",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "salma-1",
   },
   {
@@ -108,12 +226,33 @@ const data = [
       "Meal Perepation",
     ],
     availability: [
-      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
-      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
-      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SAT",
+        timeStart: "2022-04-23T18:25:43.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "MON",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "TUS",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "FRI",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "salma-2",
   },
   {
@@ -130,13 +269,38 @@ const data = [
       "Meal Perepation",
     ],
     availability: [
-      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
-      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
-      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
-      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SAT",
+        timeStart: "2022-04-23T18:25:43.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "TUS",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "WED",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "THU",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "FRI",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "salma-3",
   },
   {
@@ -153,13 +317,38 @@ const data = [
       "Meal Perepation",
     ],
     availability: [
-      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
-      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
-      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
-      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
-      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
-      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+      {
+        day: "SAT",
+        timeStart: "2022-04-23T18:25:43.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "SUN",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "MON",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "TUS",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "WED",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
+      {
+        day: "FRI",
+        timeStart: "2022-03-10T18:25:44.511Z",
+        timeEnd: "2022-04-10T18:25:44.511Z",
+      },
     ],
+    experience: 6,
     slug: "thorya",
   },
 ];
