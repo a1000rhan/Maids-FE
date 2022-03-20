@@ -8,7 +8,7 @@ const MaidItem = ({ maid, navigation }) => {
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate("Details");
+        navigation.navigate("Details", { maid: maid });
       }}
     >
       <View style={styles.card}>

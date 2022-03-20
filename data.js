@@ -5,6 +5,17 @@ const data = [
     price: 5,
     nationality: "Indian",
     languages: ["Arabic"],
+    skills: ["Child Care", "Light cleaning", "Companion care", "Laundry"],
+    availability: [
+      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
+      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
+      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
+      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "mary",
   },
   {
     _id: 2,
@@ -12,6 +23,15 @@ const data = [
     price: 7,
     nationality: "Philpino",
     languages: ["Arabic"],
+    skills: ["Child Care", "Light cleaning", "Laundry", "Meal Perepation"],
+    availability: [
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
+      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
+      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "sarah",
   },
   {
     _id: 3,
@@ -19,6 +39,13 @@ const data = [
     price: 10,
     nationality: "Philpino",
     languages: ["Arabic", "English"],
+    skills: ["Child Care", "Light cleaning", "Companion care", "Laundry"],
+    availability: [
+      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+
+      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "nora",
   },
   {
     _id: 4,
@@ -26,6 +53,13 @@ const data = [
     price: 5,
     nationality: "Philpino",
     languages: ["Arabic", "English"],
+    skills: ["Light cleaning", "Companion care", "Laundry", "Meal Perepation"],
+    availability: [
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
+      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "yaya",
   },
   {
     _id: 5,
@@ -33,6 +67,17 @@ const data = [
     price: 7,
     nationality: "Indian",
     languages: ["Arabic", "English"],
+    skills: ["Child Care", "Light cleaning", "Meal Perepation"],
+    availability: [
+      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
+      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
+      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
+      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "salma",
   },
   {
     _id: 6,
@@ -40,6 +85,14 @@ const data = [
     price: 7,
     nationality: "Indian",
     languages: ["Arabic", "English"],
+    skills: ["Child Care"],
+    availability: [
+      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
+      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "salma-1",
   },
   {
     _id: 7,
@@ -47,6 +100,21 @@ const data = [
     price: 7,
     nationality: "Indian",
     languages: ["Arabic", "English"],
+    skills: [
+      "Child Care",
+      "Light cleaning",
+      "Companion care",
+      "Laundry",
+      "Meal Perepation",
+    ],
+    availability: [
+      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
+      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "salma-2",
   },
   {
     _id: 8,
@@ -54,6 +122,22 @@ const data = [
     price: 7,
     nationality: "Indian",
     languages: ["Arabic", "English"],
+    skills: [
+      "Child Care",
+      "Light cleaning",
+      "Companion care",
+      "Laundry",
+      "Meal Perepation",
+    ],
+    availability: [
+      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
+      { day: "THU", time: "2022-03-10T18:25:44.511Z" },
+      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "salma-3",
   },
   {
     _id: 9,
@@ -61,6 +145,22 @@ const data = [
     price: 7,
     nationality: "Indian",
     languages: ["Arabic", "English"],
+    skills: [
+      "Child Care",
+      "Light cleaning",
+      "Companion care",
+      "Laundry",
+      "Meal Perepation",
+    ],
+    availability: [
+      { day: "SAT", time: "2022-04-23T18:25:43.511Z" },
+      { day: "SUN", time: "2022-03-10T18:25:44.511Z" },
+      { day: "MON", time: "2022-03-10T18:25:44.511Z" },
+      { day: "TUS", time: "2022-03-10T18:25:44.511Z" },
+      { day: "WED", time: "2022-03-10T18:25:44.511Z" },
+      { day: "FRI", time: "2022-03-10T18:25:44.511Z" },
+    ],
+    slug: "thorya",
   },
 ];
 
