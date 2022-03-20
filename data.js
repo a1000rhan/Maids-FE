@@ -34,8 +34,10 @@ const data = [
         timeEnd: "2022-04-10T18:25:44.511Z",
       },
     ],
+    experience: 6,
     about:
-      "Maid that has been working in Kuwait for the past 10 years and likes to take care of kids",
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
+    slug: "mary",
   },
 
   {
@@ -73,6 +75,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "sarah",
   },
   {
@@ -96,6 +100,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "nora",
   },
   {
@@ -123,6 +129,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "yaya",
   },
   {
@@ -170,6 +178,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "salma",
   },
   {
@@ -202,6 +212,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "salma-1",
   },
   {
@@ -245,6 +257,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "salma-2",
   },
   {
@@ -293,6 +307,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "salma-3",
   },
   {
@@ -341,6 +357,8 @@ const data = [
       },
     ],
     experience: 6,
+    about:
+      "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "thorya",
   },
 ];
