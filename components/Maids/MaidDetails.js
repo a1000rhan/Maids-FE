@@ -1,9 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
 import { Chip } from "react-native-paper";
-import { Avatar, ScrollView } from "native-base";
+import { Avatar } from "native-base";
 import moment from "moment";
 
 const windowWidth = Dimensions.get("window").width;
@@ -41,7 +48,7 @@ const MaidDetails = ({ route, navigation }) => {
   ));
 
   return (
-    <View>
+    <>
       {/* header */}
       <View style={styles.header}>
         <Icon
@@ -66,24 +73,27 @@ const MaidDetails = ({ route, navigation }) => {
       </View>
 
       {/* body */}
-      <View style={styles.bg}>
-        <ScrollView style={styles.scroll}>
-          <Text style={styles.titleSec}>Speaks</Text>
-          <View style={styles.bubbles}>{langArr}</View>
 
-          <Text style={styles.titleSec}>Skills</Text>
-          <View style={styles.bubbles}>{skills}</View>
+      <ScrollView style={styles.scroll}>
+        <Text style={styles.titleSec}>Speaks</Text>
+        <View style={styles.bubbles}>{langArr}</View>
 
-          <Text style={styles.titleSec}>Availability</Text>
-          <View style={styles.bubbles}>{availability}</View>
+        <Text style={styles.titleSec}>Skills</Text>
+        <View style={styles.bubbles}>{skills}</View>
 
-          <View style={styles.exp}>
-            <Text style={styles.titleSec}>Years of Experience</Text>
-            <Text style={styles.experienceTitle}>{maid.experience} years</Text>
-          </View>
-        </ScrollView>
-      </View>
-    </View>
+        <Text style={styles.titleSec}>Availability</Text>
+        <View style={styles.bubbles}>{availability}</View>
+
+        <View style={styles.exp}>
+          <Text style={styles.titleSec}>Years of Experience</Text>
+          <Text style={styles.experienceTitle}>{maid.experience} years</Text>
+        </View>
+        <View style={styles.about}>
+          <Text style={styles.titleSec}>About</Text>
+          <Text style={styles.experienceTitle}>{maid.about}</Text>
+        </View>
+      </ScrollView>
+    </>
   );
 };
 
@@ -113,10 +123,9 @@ const styles = StyleSheet.create({
     color: "white",
     marginRight: 100,
   },
-  bg: {
+
+  scroll: {
     backgroundColor: "#FFFAFC",
-    height: "100%",
-    width: "100%",
   },
   bubbles: {
     display: "flex",
@@ -183,7 +192,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     alignSelf: "center",
   },
-  scroll: {
-    marginBottom: 500,
+  about: {
+    width: "100%",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    backgroundColor: "#fff",
+    margin: 10,
+    elevation: 8,
+    padding: 20,
   },
 });

@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     backgroundColor: "#fff",
     margin: 10,
+    elevation: 8,
   },
   username: {
     fontSize: 20,

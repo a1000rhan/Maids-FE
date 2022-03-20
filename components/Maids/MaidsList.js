@@ -29,7 +29,7 @@ const MaidsList = ({ navigation }) => {
     ));
 
   return (
-    <View>
+    <>
       <View style={styles.searchBar}>
         <Input
           w={350}
@@ -59,14 +59,11 @@ const MaidsList = ({ navigation }) => {
           source={require("../../assets/1995438.png")}
         />
       </View>
-      <View style={styles.bg}>
-        <SafeAreaView>
-          <ScrollView style={styles.scroll}>
-            <View style={styles.cards}>{maidsArr}</View>
-          </ScrollView>
-        </SafeAreaView>
-      </View>
-    </View>
+
+      <ScrollView style={styles.scroll}>
+        <View style={styles.cards}>{maidsArr}</View>
+      </ScrollView>
+    </>
   );
 };
 
@@ -91,11 +88,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: windowWidth / 5,
   },
-  bg: {
-    backgroundColor: "#FFFAFC",
-    height: "100%",
-    width: "100%",
-  },
+  bg: {},
   searchBar: {
     position: "absolute",
     marginTop: windowHeight / 4,
@@ -118,9 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  scroll: {
-    marginBottom: 420,
-  },
+  scroll: { backgroundColor: "#FFFAFC" },
   cards: {
     display: "flex",
     justifyContent: "center",
