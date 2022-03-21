@@ -82,17 +82,8 @@ const DrawerNavigator = () => {
         options={{
           drawerActiveBackgroundColor: "#E7E6FF",
           drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-          headerTintColor: "white",
-
-          headerStyle: {
-            backgroundColor: "#6867AC",
-            height: 230,
-            borderRadius: 20,
-          },
-
-          headerTitleStyle: { fontSize: 40, color: "white" },
+          headerShown: false,
         }}
-        
         name="Profile"
         component={MaidProfile}
       />
@@ -113,7 +104,7 @@ const DrawerNavigator = () => {
         name="Signup"
         component={Signup}
       />
-      
+
       <Drawer.Screen
         options={{
           drawerActiveBackgroundColor: "#E7E6FF",

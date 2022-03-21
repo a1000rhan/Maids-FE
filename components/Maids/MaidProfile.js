@@ -1,4 +1,5 @@
-import { Avatar, Button, HStack } from "native-base";
+import { Avatar, HStack, Button } from "native-base";
+
 import moment from "moment";
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -22,15 +23,15 @@ const MaidProfile = ({ navigation }) => {
   const [edit, setEdit] = useState(false);
   const [profile, setProfile] = useState(data[0]);
   const [skill, setSkill] = useState(data[0].skills.toString());
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState("date");
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("dateTime");
   const [show, setShow] = useState(false);
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
   };
-
+  console.log(date);
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
@@ -77,6 +78,9 @@ const MaidProfile = ({ navigation }) => {
   };
   const handleExperience = (value) => {
     setProfile({ ...profile, experience: value });
+  };
+  const handlePayment = (value) => {
+    setProfile({ ...profile, price: value });
   };
   const handleSubmit = (value) => {
     let tempArr = skill.split(",");
@@ -135,24 +139,26 @@ const MaidProfile = ({ navigation }) => {
           )}
         </HStack>
         <HStack style={styles.headLine}>
-          <Text style={styles.profileProperty}>About: </Text>
+          <Text style={styles.profileProperty}>Payment (per hour) : </Text>
           <View style={styles.propertyDetail}>
             {edit ? (
               <TextInput
                 style={styles.defaultSize}
                 multiline={true}
-                value={profile.about}
-                onChangeText={handleAbout}
+                value={String(profile.price)}
+                onChangeText={handlePayment}
               />
             ) : (
-              <Text style={styles.defaultSize}>{profile.about}</Text>
+              <Text style={styles.defaultSize}>{profile.price}</Text>
             )}
           </View>
         </HStack>
+
         <HStack style={styles.headLine}>
           <Text style={styles.profileProperty}>Skills: </Text>
           {edit ? (
             <TextInput
+              style={styles.inputText}
               value={skill}
               multiline={true}
               onChangeText={handleSkill}
@@ -173,7 +179,7 @@ const MaidProfile = ({ navigation }) => {
                 style={styles.defaultSize}
                 multiline={true}
                 value={String(profile.experience)}
-                onChangeText={handleAbout}
+                onChangeText={handleExperience}
               />
             ) : (
               <Text style={styles.defaultSize}>{profile.experience}</Text>
@@ -185,12 +191,24 @@ const MaidProfile = ({ navigation }) => {
           {edit ? (
             <>
               <View>
-                <Button onPress={showDatepicker} title="Show date picker!" />
+                <Button
+                  style={styles.btn}
+                  onPress={showDatepicker}
+                  title="Show date picker!"
+                >
+                  Choose date
+                </Button>
               </View>
               <View>
-                <Button onPress={showTimepicker} title="Show time picker!" />
+                <Button
+                  style={styles.btn}
+                  onPress={showTimepicker}
+                  title="Show time picker!"
+                >
+                  Choose start time
+                </Button>
               </View>
-              <Text>selected: {date.toLocaleString()}</Text>
+
               {show && (
                 <DateTimePicker
                   testID="dateTimePicker"
@@ -198,6 +216,7 @@ const MaidProfile = ({ navigation }) => {
                   mode={mode}
                   is24Hour={true}
                   onChange={onChange}
+                  theam
                 />
               )}
             </>
@@ -205,6 +224,27 @@ const MaidProfile = ({ navigation }) => {
             <View style={styles.bubbles}>{availability}</View>
           )}
         </HStack>
+        <HStack style={styles.headLine}>
+          <Text style={styles.profileProperty}>Bookings : </Text>
+          <View style={styles.propertyDetail}>
+            <Text style={styles.defaultSize}>Friday 25 March </Text>
+          </View>
+        </HStack>
+        <View style={styles.headLine}>
+          <Text style={styles.profileProperty}>About: </Text>
+          <View style={styles.propertyDetail}>
+            {edit ? (
+              <TextInput
+                style={styles.defaultSize}
+                multiline={true}
+                value={profile.about}
+                onChangeText={handleAbout}
+              />
+            ) : (
+              <Text style={styles.defaultSize}>{profile.about}</Text>
+            )}
+          </View>
+        </View>
       </ScrollView>
     </>
   );
@@ -286,4 +326,5 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   timeText: { color: "black", fontSize: 15, fontWeight: "bold" },
+  inputText: { width: 300, fontSize: 15 },
 });
