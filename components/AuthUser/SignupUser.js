@@ -19,6 +19,7 @@ import authStore from "../../store/userAuthStore";
 
 const SignupUser = ({ navigation }) => {
   const [isSelected, setSelection] = useState(false);
+
   const toast = useToast();
   const [user, setUser] = useState({
     username: "",
@@ -29,6 +30,8 @@ const SignupUser = ({ navigation }) => {
   const handleSubmit = async () => {
     await authStore.signUpUser(user);
     if (authStore.user) navigation.replace("HomeScreen");
+    await authStore.signUp(user);
+    if (authStore.user) navigation.replace("List");
   };
   return (
     <Center w="100%">
@@ -49,6 +52,8 @@ const SignupUser = ({ navigation }) => {
           <FormControl>
             <FormControl.Label>Username</FormControl.Label>
             <Input
+            borderWidth={1}
+            borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, username: value })}
             />
           </FormControl>
@@ -57,14 +62,21 @@ const SignupUser = ({ navigation }) => {
             <FormControl.Label>Email</FormControl.Label>
             <Input
               type="email"
+              borderWidth={1}
+              borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, email: value })}
             />
           </FormControl>
 
+         
+
+                  
           <FormControl>
             <FormControl.Label>Password</FormControl.Label>
             <Input
               type="password"
+              borderWidth={1}
+              borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, password: value })}
             />
           </FormControl>
@@ -92,7 +104,28 @@ const SignupUser = ({ navigation }) => {
       <Text>User</Text>
              </View>
 </FormControl> */}
+      
+       
 
+       <FormControl>   
+       <FormControl.Label>Select your user type:</FormControl.Label>
+
+       
+          
+       <CheckBox
+                onPress={() => setMaid(!maid)}
+                title="Maid"
+                isChecked={maid}
+             
+              />
+              <CheckBox
+                onPress={() => setUser(!user)}
+                title="User"
+                isChecked={user}
+                
+              />
+              
+    </FormControl>  
           {/* <FormControl>
             <FormControl.Label>Email</FormControl.Label>
             <Input

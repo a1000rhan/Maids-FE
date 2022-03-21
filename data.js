@@ -5,13 +5,9 @@ const data = [
     price: 5,
     nationality: "Indian",
     languages: ["Arabic"],
-    skills: ["Child Care", "Light cleaning", "Companion care", "Laundry"],
+    skills: ["Child Care", "Light cleaning", "Laundry", "Meal Perepation"],
+    experience: 6,
     availability: [
-      {
-        day: "SAT",
-        timeStart: "2022-04-23T18:25:43.511Z",
-        timeEnd: "2022-04-10T18:25:44.511Z",
-      },
       {
         day: "SUN",
         timeStart: "2022-03-10T18:25:44.511Z",
@@ -37,17 +33,13 @@ const data = [
         timeStart: "2022-03-10T18:25:44.511Z",
         timeEnd: "2022-04-10T18:25:44.511Z",
       },
-      {
-        day: "FRI",
-        timeStart: "2022-03-10T18:25:44.511Z",
-        timeEnd: "2022-04-10T18:25:44.511Z",
-      },
     ],
     experience: 6,
     about:
       "I am here for you to get your life back on track by easily keeping your space a clean safe haven!I have cleaned with ASAP Cleaning service in Kuwait for about 4 years. I have had to clean apartments out from previous tenants and make it spiffy for the new family moving in. This includes vacuuming, window cleaning, deep cleaning bathrooms, and kitchens, room organizing including what ever special requests you ask of me. Hope to hear from you soon. Thank you!",
     slug: "mary",
   },
+
   {
     _id: 2,
     name: "Sarah",
