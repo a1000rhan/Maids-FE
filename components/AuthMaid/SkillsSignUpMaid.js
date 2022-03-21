@@ -18,11 +18,15 @@ import COLORS from "../AuthUser/color";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import maidAuthStore from "../../store/maidAuthStore";
+
 const SkillsSignUpMaid = ({ route, navigation }) => {
-  const [start, setStart] = useState(new Date(1598051730000));
-  const [end, setEnd] = useState(new Date(1598051730000));
+  const [start, setStart] = useState(new Date());
+  const [end, setEnd] = useState(new Date());
+  const [day, setDay] = useState("");
   const [mode, setMode] = useState("datetime");
+
   const toast = useToast();
+
   const [user, setUser] = useState({
     username: route.params.user.username,
     password: route.params.user.password,
@@ -34,30 +38,39 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     languages: route.params.user.languages,
     price: 0,
     image: "",
-    availability: [{ day: "", timeStart: "", timeEnd: "" }],
+    availability: [],
     experience: 0,
     skill: [],
     address: "",
   });
+  console.log(
+    "🚀 ~ file: SkillsSignUpMaid.js ~ line 45 ~ SkillsSignUpMaid ~ user",
+    user.availability
+  );
 
   const handleChangeStart = (event, startTime) => {
     setStart(startTime);
-
-    setUser({
-      ...user.availability,
-      availability: [{ timeStart: startTime }],
-    });
   };
   const handleChangeEnd = (event, endTime) => {
     setEnd(endTime);
-
-    setUser({
-      ...user.availability,
-      availability: [{ timeEnd: endTime }],
-    });
+  };
+  const handleChangeDay = (event) => {
+    setDay(event);
   };
 
   const handleSubmit = () => {
+    setUser({
+      ...user,
+      availability: [
+        {
+          ...user.availability,
+          day: day,
+          timeStart: start,
+          timeEnd: end,
+        },
+      ],
+    });
+
     maidAuthStore.signUpMaid(user);
   };
   return (
@@ -94,15 +107,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
           <FormControl>
             <FormControl.Label>Availability:</FormControl.Label>
             <FormControl.Label>Days</FormControl.Label>
-            <Input
-              type="day"
-              onChangeText={(value) =>
-                setUser({
-                  ...user.availability,
-                  availability: [{ day: value }],
-                })
-              }
-            />
+            <Input type="day" onChangeText={handleChangeDay} />
             <FormControl.Label>start Time</FormControl.Label>
 
             <DateTimePicker
