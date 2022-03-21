@@ -11,14 +11,14 @@ import {
   VStack,
   Text,
   View,
-  CheckBox
+  CheckBox,
 } from "native-base";
 import { StyleSheet } from "react-native";
-import COLORS from "./color"
-import authStore from "../../authStore";
+import COLORS from "../AuthUser/color";
+import authStore from "../../store/maidAuthStore";
 
-const Signup = ({ navigation }) => {
-    const [isSelected, setSelection] = useState(false);
+const UserSignUpMaid = ({ navigation }) => {
+  const [isSelected, setSelection] = useState(false);
   const toast = useToast();
   const [user, setUser] = useState({
     username: "",
@@ -27,8 +27,7 @@ const Signup = ({ navigation }) => {
   });
 
   const handleSubmit = async () => {
-    await authStore.signUp(user);
-    if (authStore.user) navigation.replace("HomeScreen");
+    navigation.navigate("NameSignUpMaid", { user: user });
   };
   return (
     <Center w="100%">
@@ -60,7 +59,7 @@ const Signup = ({ navigation }) => {
               onChangeText={(value) => setUser({ ...user, email: value })}
             />
           </FormControl>
-          
+
           <FormControl>
             <FormControl.Label>Password</FormControl.Label>
             <Input
@@ -73,47 +72,16 @@ const Signup = ({ navigation }) => {
             <FormControl.Label>Confirm Password</FormControl.Label>
             <Input
               type="password"
-              onChangeText={(value) => setUser({ ...user, confirmpassword: value })}
+              onChangeText={(value) =>
+                setUser({ ...user, confirmpassword: value })
+              }
             />
           </FormControl>
 
-          {/* <FormControl>
-             <View style={style.container}>
-      <View style={style.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={style.checkbox}
-        />
-        <Text style={style.label}>Maid</Text>
-      </View>
-      <Text>User</Text>
-             </View>
-</FormControl> */}
-         
-
-          {/* <FormControl>
-            <FormControl.Label>Email</FormControl.Label>
-            <Input
-              type="email"
-              onChangeText={(value) => setUser({ ...user, email: value })}
-            />
-          </FormControl> */}
           <Button style={style.btn} onPress={handleSubmit}>
-            Sign up
+            Next
           </Button>
-          <HStack mt="6" justifyContent="center">
-            {/* <Link
-              _text={{
-                color: "indigo.500",
-                fontWeight: "medium",
-                fontSize: "sm",
-              }}
-              onPress={() => navigation.navigate}
-            >
-              Sign in
-            </Link> */}
-          </HStack>
+          <HStack mt="6" justifyContent="center"></HStack>
         </VStack>
       </Box>
     </Center>
@@ -157,4 +125,4 @@ const style = StyleSheet.create({
     margin: 8,
   },
 });
-export default Signup;
+export default UserSignUpMaid;

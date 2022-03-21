@@ -1,26 +1,26 @@
 import { makeAutoObservable } from "mobx";
 import decode from "jwt-decode";
-import api from "./api";
+import api from "../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import profileStore from "./profileStore";
 
-class AuthStore {
-  user = null;
+class MaidAuthStore {
+  maid = null;
   // loading = true;
 
   constructor() {
     makeAutoObservable(this, {});
   }
-  setUser = (token) => {
+  setMaid = (token) => {
     AsyncStorage.setItem("myToken", token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
-    this.user = decode(token);
+    this.maid = decode(token);
   };
 
-  signIn = async (user) => {
+  signInMaid = async (maid) => {
     try {
-      const resp = await api.post("/signin", user);
-      this.setUser(resp.data.token);
+      const resp = await api.post("/signinMaid", maid);
+      this.setMaid(resp.data.token);
     } catch (error) {
       console.log(
         "🚀 ~ file: authStore.js ~ line 25 ~ AuthStore ~ signIn= ~ error",
@@ -29,10 +29,14 @@ class AuthStore {
     }
   };
 
-  signUp = async (user) => {
+  signUpMaid = async (maid) => {
+    console.log(
+      "🚀 ~ file: maidAuthStore.js ~ line 33 ~ MaidAuthStore ~ signUpMaid= ~ maid",
+      maid
+    );
     try {
-      const resp = await api.post("/signup", user);
-      this.setUser(resp.data.token);
+      const resp = await api.post("/signupMaid", maid);
+      this.setMaid(resp.data.token);
       await profileStore.assignProfileToUser();
     } catch (error) {
       console.log(
@@ -41,9 +45,9 @@ class AuthStore {
       );
     }
   };
-  signout = async () => {
+  signOut = async () => {
     delete api.defaults.headers.common.Authorization;
-    this.user = null;
+    this.maid = null;
     await AsyncStorage.removeItem("myToken");
   };
 
@@ -53,16 +57,16 @@ class AuthStore {
       const currentTime = Date.now();
       const exp = decode(token).exp;
       if (exp > currentTime) {
-        this.setUser(token);
+        this.setMaid(token);
       } else {
-        this.signout();
+        this.signOut();
       }
     } else {
-      this.signout();
+      this.signOut();
     }
   };
 }
 
-const authstore = new AuthStore();
-authstore.checkForToken();
-export default authstore;
+const maidAuthStore = new MaidAuthStore();
+maidAuthStore.checkForToken();
+export default maidAuthStore;
