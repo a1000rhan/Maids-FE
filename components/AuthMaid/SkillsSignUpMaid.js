@@ -9,11 +9,9 @@ import {
   Input,
   useToast,
   VStack,
-  Text,
-  View,
-  CheckBox,
+  Select,
 } from "native-base";
-import { StyleSheet } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import COLORS from "../AuthUser/color";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -98,16 +96,23 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
 
           <FormControl>
             <FormControl.Label>Image</FormControl.Label>
-            <Input
-              type="text"
-              onChangeText={(value) => setUser({ ...user, image: value })}
-            />
+            <TouchableOpacity onPress={() => {}}>
+              <Text>Choose a Photo</Text>
+            </TouchableOpacity>
           </FormControl>
 
           <FormControl>
             <FormControl.Label>Availability:</FormControl.Label>
             <FormControl.Label>Days</FormControl.Label>
-            <Input type="day" onChangeText={handleChangeDay} />
+            <Select onChangeText={handleChangeDay}>
+              <Select.Item label="SAT" value="SAT" />
+              <Select.Item label="SUN" value="SUN" />
+              <Select.Item label="MON" value="MON" />
+              <Select.Item label="TUS" value="TUS" />
+              <Select.Item label="WED" value="WED" />
+              <Select.Item label="THU" value="THU" />
+              <Select.Item label="FRI" value="FRI" />
+            </Select>
             <FormControl.Label>start Time</FormControl.Label>
 
             <DateTimePicker
