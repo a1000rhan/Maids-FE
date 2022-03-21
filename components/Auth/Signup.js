@@ -10,16 +10,15 @@ import {
   useToast,
   VStack,
 } from "native-base";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import COLORS from "./color"
 import authStore from "../../authStore";
-import CheckBox from "./CheckBox";
-
+import { RadioButton, Text } from 'react-native-paper';
 
 
 
 const Signup = ({ navigation }) => {
-    const [maid, setMaid] = useState(false);
+  const [value, setValue] = React.useState('user');
       
   const toast = useToast();
   const [user, setUser] = useState({
@@ -32,6 +31,8 @@ const Signup = ({ navigation }) => {
     await authStore.signUp(user);
     if (authStore.user) navigation.replace("List");
   };
+
+  
   return (
     <Center w="100%">
       <Box safeArea p="2" py="8" w="90%" maxW="290">
@@ -112,27 +113,19 @@ const Signup = ({ navigation }) => {
 
        
           
-       <CheckBox
-                onPress={() => setMaid(!maid)}
-                title="Maid"
-                isChecked={maid}
-             
-              />
-              <CheckBox
-                onPress={() => setUser(!user)}
-                title="User"
-                isChecked={user}
-                
-              />
+       <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
+      <View style={{display: "flex", flexDirection:"row", marginTop: 10 }}>
+       <Text><RadioButton.IOS value="user"  color={"purple"}     /></Text>  
+        <Text  style={{margin: 6}}>User </Text>
+      </View>
+      <View style={{display: "flex", flexDirection:"row", marginTop: 10 }}>
+       <Text><RadioButton.IOS value="maid"  color={"purple"}     /></Text>  
+        <Text  style={{margin: 6}}>Maid </Text>
+      </View>
+    </RadioButton.Group>
               
     </FormControl>  
-          {/* <FormControl>
-            <FormControl.Label>Email</FormControl.Label>
-            <Input
-              type="email"
-              onChangeText={(value) => setUser({ ...user, email: value })}
-            />
-          </FormControl> */}
+      
           <Button style={style.btn} onPress={handleSubmit}>
             Sign up
           </Button>

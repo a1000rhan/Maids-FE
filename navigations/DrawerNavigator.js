@@ -14,6 +14,7 @@ import MaidDetails from "../components/Maids/MaidDetails";
 import Signup from "../components/Auth/Signup";
 import MaidProfile from "../components/Maids/MaidProfile";
 import Signin from "../components/Auth/Signin";
+import BookingItem from "../components/Booking/BookingItem";
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -78,6 +79,24 @@ const DrawerNavigator = () => {
         name="User"
         component={User}
       />
+       <Drawer.Screen
+        options={{
+          drawerActiveBackgroundColor: "#E7E6FF",
+          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+          headerTintColor: "white",
+
+          headerStyle: {
+            backgroundColor: "#6867AC",
+            height: 230,
+            borderRadius: 20,
+          },
+
+          headerTitleStyle: { fontSize: 40, color: "white" },
+        }}
+        name="Booking"
+        component={BookingItem}
+      />
+
       <Drawer.Screen
         options={{
           drawerActiveBackgroundColor: "#E7E6FF",
