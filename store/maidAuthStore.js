@@ -30,12 +30,17 @@ class MaidAuthStore {
   };
 
   signUpMaid = async (maid) => {
-    console.log(
-      "🚀 ~ file: maidAuthStore.js ~ line 33 ~ MaidAuthStore ~ signUpMaid= ~ maid",
-      maid
-    );
     try {
+      const formData = new FormData();
+
+      for (const key in maid) formData.append(key, maid[key]);
+
       const resp = await api.post("/signupMaid", maid);
+      console.log(
+        "🚀 ~ file: maidAuthStore.js ~ line 39 ~ MaidAuthStore ~ signUpMaid= ~ resp",
+        resp
+      );
+
       this.setMaid(resp.data.token);
       await profileStore.assignProfileToUser();
     } catch (error) {

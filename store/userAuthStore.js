@@ -31,7 +31,7 @@ class UserAuthStore {
     }
   };
 
-  signUpUser = async (user) => {
+  signUpUser = async (user, navigation) => {
     try {
       const resp = await api.post("/signupUser", user);
       this.setUser(resp.data.token);
@@ -45,6 +45,7 @@ class UserAuthStore {
       );
     }
   };
+
   signOut = async () => {
     delete api.defaults.headers.common.Authorization;
     this.user = null;

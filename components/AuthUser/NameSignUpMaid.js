@@ -9,16 +9,16 @@ import {
   Input,
   useToast,
   VStack,
-  Text,
-  View,
-  CheckBox,
 } from "native-base";
-import { StyleSheet } from "react-native";
-import COLORS from "../AuthUser/color";
-import authStore from "../../store/maidAuthStore";
+import { StyleSheet, Text } from "react-native";
+import { Chip } from "react-native-paper";
 
+import COLORS from "./color";
+import data from "../../data";
+let lang;
 const NameSignUpMaid = ({ navigation, route }) => {
   const toast = useToast();
+  const [language, setLanguage] = useState("");
 
   const [user, setUser] = useState({
     username: route.params.user.username,
@@ -32,6 +32,18 @@ const NameSignUpMaid = ({ navigation, route }) => {
     address: "",
   });
 
+  const handelChange = (event) => {
+    setLanguage(event);
+
+    const temp = language.includes(",") ? (
+      <Chip style={styles.chip}>
+        <Text style={styles.chipText}>{language}</Text>
+      </Chip>
+    ) : (
+      ""
+    );
+    lang = temp;
+  };
   const handleSubmit = async () => {
     navigation.navigate("SkillsSignUpMaid", { user: user });
   };
@@ -84,13 +96,11 @@ const NameSignUpMaid = ({ navigation, route }) => {
 
           <FormControl>
             <FormControl.Label>Languages</FormControl.Label>
-            <Input
-              type="text"
-              onChangeText={(value) => setUser({ ...user, languages: [value] })}
-            />
+            <Input type="text" value={language} onChangeText={handelChange} />
+            {lang}
           </FormControl>
 
-          <Button style={style.btn} onPress={handleSubmit}>
+          <Button style={styles.btn} onPress={handleSubmit}>
             Next
           </Button>
           <HStack mt="6" justifyContent="center"></HStack>
@@ -100,7 +110,7 @@ const NameSignUpMaid = ({ navigation, route }) => {
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     paddingHorizontal: 20,
@@ -137,5 +147,11 @@ const style = StyleSheet.create({
   label: {
     margin: 8,
   },
+  chip: {
+    backgroundColor: "#6867AC",
+    marginBottom: 5,
+    marginRight: 5,
+  },
+  chipText: { color: "white", fontWeight: "bold" },
 });
 export default NameSignUpMaid;

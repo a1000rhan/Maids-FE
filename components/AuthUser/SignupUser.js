@@ -14,24 +14,29 @@ import {
   CheckBox,
 } from "native-base";
 import { StyleSheet } from "react-native";
-import COLORS from "./color";
-import authStore from "../../store/userAuthStore";
+
+import { RadioButton } from "react-native-paper";
+
+import COLORS from "../AuthUser/color";
+
+import userAuthStore from "../../store/userAuthStore";
 
 const SignupUser = ({ navigation }) => {
-  const [isSelected, setSelection] = useState(false);
+  const [checked, setChecked] = React.useState("user");
 
   const toast = useToast();
   const [user, setUser] = useState({
     username: "",
     password: "",
     email: "",
+    address: "",
+    fullName: "",
   });
 
   const handleSubmit = async () => {
-    await authStore.signUpUser(user);
-    if (authStore.user) navigation.replace("HomeScreen");
-    await authStore.signUp(user);
-    if (authStore.user) navigation.replace("List");
+    checked == "user"
+      ? userAuthStore.signUpUser(user, navigation)
+      : navigation.navigate("NameSignUpMaid", { user: user });
   };
 
   
@@ -54,8 +59,6 @@ const SignupUser = ({ navigation }) => {
           <FormControl>
             <FormControl.Label>Username</FormControl.Label>
             <Input
-            borderWidth={1}
-            borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, username: value })}
             />
           </FormControl>
@@ -64,21 +67,31 @@ const SignupUser = ({ navigation }) => {
             <FormControl.Label>Email</FormControl.Label>
             <Input
               type="email"
-              borderWidth={1}
-              borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, email: value })}
             />
           </FormControl>
+          <View style={{ display: checked == "user" ? "" : "none" }}>
+            <FormControl>
+              <FormControl.Label>Address</FormControl.Label>
+              <Input
+                type="text"
+                onChangeText={(value) => setUser({ ...user, address: value })}
+              />
+            </FormControl>
 
-         
+            <FormControl>
+              <FormControl.Label>Full Name</FormControl.Label>
+              <Input
+                type="email"
+                onChangeText={(value) => setUser({ ...user, fullName: value })}
+              />
+            </FormControl>
+          </View>
 
-                  
           <FormControl>
             <FormControl.Label>Password</FormControl.Label>
             <Input
               type="password"
-              borderWidth={1}
-              borderColor="#712B75"
               onChangeText={(value) => setUser({ ...user, password: value })}
             />
           </FormControl>
@@ -92,62 +105,38 @@ const SignupUser = ({ navigation }) => {
               }
             />
           </FormControl>
-
-          {/* <FormControl>
-             <View style={style.container}>
-      <View style={style.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={style.checkbox}
-        />
-        <Text style={style.label}>Maid</Text>
-      </View>
-      <Text>User</Text>
-             </View>
-</FormControl> */}
-      
-       
-
-       <FormControl>   
-       <FormControl.Label>Select your user type:</FormControl.Label>
-
-       
-          
-       <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
-      <View style={{display: "flex", flexDirection:"row", marginTop: 10 }}>
-       <Text><RadioButton.IOS value="user"  color={"purple"}     /></Text>  
-        <Text  style={{margin: 6}}>User </Text>
-      </View>
-      <View style={{display: "flex", flexDirection:"row", marginTop: 10 }}>
-       <Text><RadioButton.IOS value="maid"  color={"purple"}     /></Text>  
-        <Text  style={{margin: 6}}>Maid </Text>
-      </View>
-    </RadioButton.Group>
-              
-    </FormControl>  
-      
-          <Button style={style.btn} onPress={handleSubmit}>
-            Sign up
+          <RadioButton.Group style={styles.checkboxContainer}>
+            <View style={styles.checkbox}>
+              <Text>
+                <RadioButton
+                  value="user"
+                  status={checked === "user" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("user")}
+                />
+                User
+              </Text>
+            </View>
+            <View style={styles.checkbox}>
+              <Text>
+                <RadioButton
+                  value="maid"
+                  status={checked === "maid" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("maid")}
+                />
+                Maid
+              </Text>
+            </View>
+          </RadioButton.Group>
+          <Button style={styles.btn} onPress={handleSubmit}>
+            Next
           </Button>
-          <HStack mt="6" justifyContent="center">
-            {/* <Link
-              _text={{
-                color: "indigo.500",
-                fontWeight: "medium",
-                fontSize: "sm",
-              }}
-              onPress={() => navigation.navigate}
-            >
-              Sign in
-            </Link> */}
-          </HStack>
+          <HStack mt="6" justifyContent="center"></HStack>
         </VStack>
       </Box>
     </Center>
   );
 };
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     paddingHorizontal: 20,
@@ -174,13 +163,12 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  checkboxContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
+  checkboxContainer: { display: "flex", flexDirection: "row" },
   checkbox: {
-    alignSelf: "center",
+    display: "flex",
+    flexDirection: "row",
   },
+
   label: {
     margin: 8,
   },
