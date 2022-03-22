@@ -83,8 +83,8 @@ const DrawerNavigator = () => {
           drawerActiveBackgroundColor: "#E7E6FF",
           drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
           headerTintColor: "white",
-          drawerLabel: "Sign Up",
-          headerTitle: "Sign Up",
+          drawerLabel: "Booking",
+          headerTitle: "Booking",
           headerStyle: {
             backgroundColor: "#6867AC",
           },
@@ -108,34 +108,15 @@ const DrawerNavigator = () => {
           drawerActiveBackgroundColor: "#E7E6FF",
           drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
           headerTintColor: "white",
-
+          drawerLabel: "Sign Up",
+          headerTitle: "Sign Up",
           headerStyle: {
             backgroundColor: "#6867AC",
-            height: 230,
-            borderRadius: 20,
           },
-
-          headerTitleStyle: { fontSize: 40, color: "white" },
+          headerTitleStyle: { color: "white" },
         }}
         name="SignupUser"
         component={SignupUser}
-      />
-      <Drawer.Screen
-        options={{
-          drawerActiveBackgroundColor: "#E7E6FF",
-          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-          headerTintColor: "white",
-
-          headerStyle: {
-            backgroundColor: "#6867AC",
-            height: 230,
-            borderRadius: 20,
-          },
-
-          headerTitleStyle: { fontSize: 40, color: "white" },
-        }}
-        name="UserSignUpMaid"
-        component={UserSignUpMaid}
       />
     </Drawer.Navigator>
   );

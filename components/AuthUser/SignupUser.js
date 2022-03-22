@@ -38,8 +38,6 @@ const SignupUser = ({ navigation }) => {
       ? userAuthStore.signUpUser(user, navigation)
       : navigation.navigate("NameSignUpMaid", { user: user });
   };
-
-  
   return (
     <Center w="100%">
       <Box safeArea p="2" py="8" w="90%" maxW="290">
