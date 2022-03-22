@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -11,18 +11,23 @@ import {
   VStack,
   Select,
 } from "native-base";
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Pressable,
+  Platform,
+} from "react-native";
 import COLORS from "../AuthUser/color";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import maidAuthStore from "../../store/maidAuthStore";
+import { clockRunning } from "react-native-reanimated";
+import Days from "./Days";
+import { set } from "mobx";
 
 const SkillsSignUpMaid = ({ route, navigation }) => {
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
-  const [day, setDay] = useState("");
-  const [mode, setMode] = useState("datetime");
-
   const toast = useToast();
 
   const [user, setUser] = useState({
@@ -41,10 +46,30 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     skill: [],
     address: "",
   });
-  console.log(
-    "🚀 ~ file: SkillsSignUpMaid.js ~ line 45 ~ SkillsSignUpMaid ~ user",
-    user.availability
-  );
+
+  //................Days....................
+  const [myDay, setMyDay] = useState([]);
+
+  const days = [
+    { day: "SAT", selected: false },
+    { day: "SUN", selected: false },
+    { day: "MON", selected: false },
+    { day: "TUS", selected: false },
+    { day: "WED", selected: false },
+    { day: "THU", selected: false },
+    { day: "FRI", selected: false },
+  ];
+  const showDays = days.map((item, index) => (
+    <Days myDay={myDay} setMyDay={setMyDay} item={item} key={index} />
+  ));
+  //.................................
+
+  //............Time..................
+  const [start, setStart] = useState(new Date());
+  const [end, setEnd] = useState(new Date());
+  const [timePerid, setTimePerid] = useState("");
+
+  const [modeTime, setModeTime] = useState("time");
 
   const handleChangeStart = (event, startTime) => {
     setStart(startTime);
@@ -52,24 +77,26 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
   const handleChangeEnd = (event, endTime) => {
     setEnd(endTime);
   };
-  const handleChangeDay = (event) => {
-    setDay(event);
-  };
+  //.....................................
+
+  //.............Date...................
+  const [modeDate, setModeDate] = useState("date");
+  const handleChangeDate = (event, date) => {};
+  //......................................
 
   const handleSubmit = () => {
+    setTimePerid(`${start} - ${end}`);
     setUser({
       ...user,
       availability: [
         {
           ...user.availability,
-          day: day,
-          timeStart: start,
-          timeEnd: end,
+          day: myDay,
+          time: timePerid,
+          date: end,
         },
       ],
     });
-
-    maidAuthStore.signUpMaid(user);
   };
   return (
     <Center w="100%">
@@ -104,32 +131,46 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
           <FormControl>
             <FormControl.Label>Availability:</FormControl.Label>
             <FormControl.Label>Days</FormControl.Label>
-            <Select onChangeText={handleChangeDay}>
-              <Select.Item label="SAT" value="SAT" />
-              <Select.Item label="SUN" value="SUN" />
-              <Select.Item label="MON" value="MON" />
-              <Select.Item label="TUS" value="TUS" />
-              <Select.Item label="WED" value="WED" />
-              <Select.Item label="THU" value="THU" />
-              <Select.Item label="FRI" value="FRI" />
-            </Select>
-            <FormControl.Label>start Time</FormControl.Label>
+            <View style={styles.chips}>{showDays}</View>
 
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={start}
-              mode={mode}
-              onChange={handleChangeStart}
-            />
+            <View style={styles.time}>
+              <View>
+                <FormControl.Label>start Time</FormControl.Label>
 
-            <FormControl.Label>End Time</FormControl.Label>
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  style={styles.picker}
+                  value={start}
+                  mode={modeTime}
+                  onChange={handleChangeStart}
+                />
+              </View>
+              <View>
+                <FormControl.Label>End Time</FormControl.Label>
 
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={end}
-              mode={mode}
-              onChange={handleChangeEnd}
-            />
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  style={styles.picker}
+                  value={end}
+                  mode={modeTime}
+                  onChange={handleChangeEnd}
+                />
+              </View>
+            </View>
+          </FormControl>
+
+          <FormControl>
+            <View>
+              <FormControl.Label>Date</FormControl.Label>
+
+              <DateTimePicker
+                testID="dateTimePicker"
+                style={styles.picker}
+                value={end}
+                mode={modeDate}
+                onChange={handleChangeDate}
+              />
+            </View>
           </FormControl>
 
           <FormControl>
@@ -140,7 +181,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
             />
           </FormControl>
 
-          <Button style={style.btn} onPress={handleSubmit}>
+          <Button style={styles.btn} onPress={handleSubmit}>
             Sign up
           </Button>
           <HStack mt="6" justifyContent="center"></HStack>
@@ -149,7 +190,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     </Center>
   );
 };
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     paddingHorizontal: 20,
@@ -185,6 +226,19 @@ const style = StyleSheet.create({
   },
   label: {
     margin: 8,
+  },
+  chips: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  time: {
+    width: "100%",
+    justifyContent: "space-around",
+    flexDirection: "row",
+  },
+  picker: {
+    width: 80,
   },
 });
 export default SkillsSignUpMaid;

@@ -6,9 +6,8 @@ import MaidsList from "../components/Maids/MaidsList";
 import DrawerNavigator from "./DrawerNavigator";
 import MaidDetails from "../components/Maids/MaidDetails";
 
-import SignUpMaid from "../components/AuthMaid/UserSignUpMaid";
-import SkillsSignUpMaid from "../components/AuthMaid/SkillsSignUpMaid";
-import NameSignUpMaid from "../components/AuthMaid/NameSignUpMaid";
+import SkillsSignUpMaid from "../components/AuthUser/SkillsSignUpMaid";
+import NameSignUpMaid from "../components/AuthUser/NameSignUpMaid";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -32,16 +31,8 @@ const StackNavigator = () => {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
-        name="NameSignUpMaid"
-        component={NameSignUpMaid}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SkillsSignUpMaid"
-        component={SkillsSignUpMaid}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="NameSignUpMaid" component={NameSignUpMaid} />
+      <Stack.Screen name="SkillsSignUpMaid" component={SkillsSignUpMaid} />
     </Stack.Navigator>
   );
 };

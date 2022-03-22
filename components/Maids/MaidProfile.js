@@ -17,8 +17,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import data from "../../data";
 import IconEdit from "react-native-vector-icons/Feather";
 import { TextInput } from "react-native-gesture-handler";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+
 const MaidProfile = ({ navigation }) => {
   const [edit, setEdit] = useState(false);
   const [profile, setProfile] = useState(data[0]);
@@ -94,7 +96,12 @@ const MaidProfile = ({ navigation }) => {
     <>
       <View style={styles.header}>
         <View style={styles.icon}>
-          <Icon color={"white"} name="reorder-three" size={30} />
+          <Icon
+            color={"white"}
+            name="reorder-three"
+            size={30}
+            onPress={() => navigation.toggleDrawer()}
+          />
         </View>
         <View style={styles.profile}>
           <Avatar
@@ -270,7 +277,7 @@ const styles = StyleSheet.create({
   icon: {
     marginTop: 40,
     marginLeft: 15,
-    zIndex: 10,
+    zIndex: 20,
     position: "absolute",
   },
   profile: {
