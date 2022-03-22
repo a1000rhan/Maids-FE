@@ -20,12 +20,8 @@
       "bundleIdentifier": "com.example",
       "supportsTablet": true,
       "infoPlist": {
-<<<<<<< HEAD
         "CFBundleAllowMixedLocalizations": true,
         "NSFaceIDUsageDescription": "This app will optionally use Face ID or Touch ID to save login"
-=======
-        "CFBundleAllowMixedLocalizations": true
->>>>>>> 296b802e3a63cca3a34987765705441a31d1a7f7
       }
     },
     "android": {
