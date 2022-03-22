@@ -9,23 +9,14 @@ import {
   Input,
   useToast,
   VStack,
-  Select,
 } from "native-base";
-import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Pressable,
-  Platform,
-} from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
 import COLORS from "../AuthUser/color";
-
+import moment from "moment";
+import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import maidAuthStore from "../../store/maidAuthStore";
-import { clockRunning } from "react-native-reanimated";
 import Days from "./Days";
-import { set } from "mobx";
+import maidAuthStore from "../../store/maidAuthStore";
 
 const SkillsSignUpMaid = ({ route, navigation }) => {
   const toast = useToast();
@@ -46,6 +37,30 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     skill: [],
     address: "",
   });
+  //.............Image Picker...............
+
+  const openImagePickerAsync = async () => {
+    let photo = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (photo.cancelled === true) {
+      return;
+    }
+    // ImagePicker saves the taken photo to disk and returns a local URI to it
+    let localUri = photo.uri;
+
+    let filename = localUri.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // Assume "photo" is the name of the form field the server expects
+    setUser({ ...user, image: localUri });
+  };
 
   //................Days....................
   const [myDay, setMyDay] = useState([]);
@@ -65,38 +80,40 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
   //.................................
 
   //............Time..................
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
+  const [TimeStart, setTimeStart] = useState(new Date());
+  const [TimeEnd, setTimeEnd] = useState(new Date());
   const [timePerid, setTimePerid] = useState("");
 
   const [modeTime, setModeTime] = useState("time");
-
-  const handleChangeStart = (event, startTime) => {
-    setStart(startTime);
-  };
-  const handleChangeEnd = (event, endTime) => {
-    setEnd(endTime);
-  };
   //.....................................
 
   //.............Date...................
   const [modeDate, setModeDate] = useState("date");
-  const handleChangeDate = (event, date) => {};
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
   //......................................
 
   const handleSubmit = () => {
-    setTimePerid(`${start} - ${end}`);
+    setTimePerid(
+      `${moment(TimeStart).format("HH:MM")} - ${moment(TimeEnd).format(
+        "HH:MM"
+      )}`
+    );
+
     setUser({
       ...user,
       availability: [
         {
-          ...user.availability,
           day: myDay,
           time: timePerid,
-          date: end,
+          startDate: startDate,
+          endDate: endDate,
         },
       ],
     });
+
+    maidAuthStore.signUpMaid(user);
   };
   return (
     <Center w="100%">
@@ -123,8 +140,11 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
 
           <FormControl>
             <FormControl.Label>Image</FormControl.Label>
-            <TouchableOpacity onPress={() => {}}>
-              <Text>Choose a Photo</Text>
+            <TouchableOpacity
+              style={styles.addBtn}
+              onPress={openImagePickerAsync}
+            >
+              <Text style={styles.photoTxtBtn}>Choose a Photo</Text>
             </TouchableOpacity>
           </FormControl>
 
@@ -140,36 +160,48 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
                 <DateTimePicker
                   testID="dateTimePicker"
                   style={styles.picker}
-                  value={start}
+                  value={TimeStart}
+                  style={{ flex: 1 }}
                   mode={modeTime}
-                  onChange={handleChangeStart}
+                  onChange={(event, time) => setTimeStart(time)}
                 />
               </View>
               <View>
-                <FormControl.Label>End Time</FormControl.Label>
+                <FormControl.Label>End Date</FormControl.Label>
 
                 <DateTimePicker
                   testID="dateTimePicker"
                   style={styles.picker}
-                  value={end}
+                  value={TimeEnd}
                   mode={modeTime}
-                  onChange={handleChangeEnd}
+                  onChange={(event, time) => setTimeEnd(time)}
                 />
               </View>
             </View>
-          </FormControl>
+            <View style={styles.time}>
+              <View>
+                <FormControl.Label>start Date</FormControl.Label>
 
-          <FormControl>
-            <View>
-              <FormControl.Label>Date</FormControl.Label>
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  style={styles.picker}
+                  value={startDate}
+                  mode={modeDate}
+                  onChange={(event, date) => setStartDate(date)}
+                />
+              </View>
 
-              <DateTimePicker
-                testID="dateTimePicker"
-                style={styles.picker}
-                value={end}
-                mode={modeDate}
-                onChange={handleChangeDate}
-              />
+              <View>
+                <FormControl.Label>End Date</FormControl.Label>
+
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  style={styles.picker}
+                  value={endDate}
+                  mode={modeDate}
+                  onChange={(event, date) => setEndDate(date)}
+                />
+              </View>
             </View>
           </FormControl>
 
@@ -217,15 +249,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  checkboxContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  checkbox: {
-    alignSelf: "center",
-  },
+
   label: {
     margin: 8,
+  },
+  addBtn: {
+    display: "flex",
+    alignContent: "center",
+    paddingTop: 10,
+    alignItems: "flex-end",
+  },
+  photoTxtBtn: {
+    alignSelf: "center",
+    margin: 20,
+    backgroundColor: COLORS.main,
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 5,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 3,
   },
   chips: {
     display: "flex",

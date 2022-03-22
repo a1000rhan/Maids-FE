@@ -31,8 +31,30 @@ const StackNavigator = () => {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen name="NameSignUpMaid" component={NameSignUpMaid} />
-      <Stack.Screen name="SkillsSignUpMaid" component={SkillsSignUpMaid} />
+      <Stack.Screen
+        name="NameSignUpMaid"
+        options={{
+          headerTitle: "Sign UP New Maid",
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: "#6867AC",
+          },
+          headerTitleStyle: { color: "white" },
+        }}
+        component={NameSignUpMaid}
+      />
+      <Stack.Screen
+        options={{
+          headerTintColor: "white",
+          headerTitle: "Sign UP New Maid",
+          headerStyle: {
+            backgroundColor: "#6867AC",
+          },
+          headerTitleStyle: { color: "white" },
+        }}
+        name="SkillsSignUpMaid"
+        component={SkillsSignUpMaid}
+      />
     </Stack.Navigator>
   );
 };
