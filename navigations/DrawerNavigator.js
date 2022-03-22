@@ -14,6 +14,7 @@ import SignupUser from "../components/AuthUser/SignupUser";
 import UserSignUpMaid from "../components/AuthMaid/UserSignUpMaid";
 import MaidDetails from "../components/Maids/MaidDetails";
 import MaidProfile from "../components/Maids/MaidProfile";
+import BookingItem from "../components/Booking/BookingItem";
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -82,6 +83,24 @@ const DrawerNavigator = () => {
         options={{
           drawerActiveBackgroundColor: "#E7E6FF",
           drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+          headerTintColor: "white",
+
+          headerStyle: {
+            backgroundColor: "#6867AC",
+            height: 230,
+            borderRadius: 20,
+          },
+
+          headerTitleStyle: { fontSize: 40, color: "white" },
+        }}
+        name="Booking"
+        component={BookingItem}
+      />
+
+      <Drawer.Screen
+        options={{
+          drawerActiveBackgroundColor: "#E7E6FF",
+          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
           headerShown: false,
         }}
         name="Profile"
@@ -120,24 +139,6 @@ const DrawerNavigator = () => {
         }}
         name="UserSignUpMaid"
         component={UserSignUpMaid}
-      />
-
-      <Drawer.Screen
-        options={{
-          drawerActiveBackgroundColor: "#E7E6FF",
-          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-          headerTintColor: "white",
-
-          headerStyle: {
-            backgroundColor: "#6867AC",
-            height: 230,
-            borderRadius: 20,
-          },
-
-          headerTitleStyle: { fontSize: 40, color: "white" },
-        }}
-        name="Signin"
-        component={Signin}
       />
     </Drawer.Navigator>
   );
