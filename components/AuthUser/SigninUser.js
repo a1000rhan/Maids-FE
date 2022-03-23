@@ -10,10 +10,10 @@ import {
   VStack,
   Text,
 } from "native-base";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+
 import COLORS from "./color";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import authStore from "../../store/userAuthStore";
 import { observer } from "mobx-react";
 
@@ -30,18 +30,8 @@ const SigninUser = ({ navigation }) => {
 
   return (
     <Center w="100%">
-      <Box safeArea p="10" py="12" w="90%" maxW="290">
-        <Heading
-          mt="1"
-          _dark={{
-            color: "warmGray.200",
-          }}
-          color="coolGray.600"
-          fontWeight="medium"
-          size="xs"
-        >
-          Sign in to continue!
-        </Heading>
+      <View style={styles.container}>
+        <Heading>Sign in to continue!</Heading>
 
         <VStack space={3} mt="5">
           <FormControl>
@@ -57,7 +47,7 @@ const SigninUser = ({ navigation }) => {
               onChangeText={(value) => setUser({ ...user, password: value })}
             />
           </FormControl>
-          <Button style={style.btn} mt="2" onPress={handleSubmit}>
+          <Button style={styles.btn} mt="2" onPress={handleSubmit}>
             Sign in
           </Button>
           <HStack mt="6" justifyContent="center">
@@ -75,34 +65,40 @@ const SigninUser = ({ navigation }) => {
                 fontWeight: "bold",
                 fontSize: 15,
               }}
-              onPress={() => navigation.navigate("Signup")}
+              onPress={() => navigation.navigate("SignupUser")}
             >
               Sign Up
             </Text>
           </HStack>
         </VStack>
-      </Box>
+      </View>
     </Center>
   );
 };
 
-const style = StyleSheet.create({
-  header: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: COLORS.primary,
-  },
-  headerTitle: {
-    color: COLORS.white,
-    fontWeight: "bold",
-    fontSize: 23,
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    width: "80%",
+    height: "80%",
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    backgroundColor: "#fff",
+    margin: 10,
+    elevation: 8,
   },
   btn: {
+    backgroundColor: COLORS.main,
     height: 50,
-    width: 120,
-    backgroundColor: COLORS.primary,
+    width: "100%",
     marginTop: 20,
     borderRadius: 7,
     justifyContent: "center",

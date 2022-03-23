@@ -8,6 +8,7 @@ import MaidDetails from "../components/Maids/MaidDetails";
 
 import SkillsSignUpMaid from "../components/AuthUser/SkillsSignUpMaid";
 import NameSignUpMaid from "../components/AuthUser/NameSignUpMaid";
+import { observer } from "mobx-react";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -59,6 +60,6 @@ const StackNavigator = () => {
   );
 };
 
-export default StackNavigator;
+export default observer(StackNavigator);
 
 const styles = StyleSheet.create({});

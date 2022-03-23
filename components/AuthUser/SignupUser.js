@@ -10,16 +10,16 @@ import {
   useToast,
   VStack,
   Text,
-  View,
   CheckBox,
 } from "native-base";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { RadioButton } from "react-native-paper";
 
 import COLORS from "../AuthUser/color";
 
 import userAuthStore from "../../store/userAuthStore";
+import { observer } from "mobx-react";
 
 const SignupUser = ({ navigation }) => {
   const [checked, setChecked] = React.useState("user");
@@ -41,18 +41,8 @@ const SignupUser = ({ navigation }) => {
 
   return (
     <Center w="100%">
-      <Box safeArea p="2" py="8" w="90%" maxW="290">
-        <Heading
-          mt="1"
-          _dark={{
-            color: "warmGray.200",
-          }}
-          color="coolGray.600"
-          fontWeight="medium"
-          size="xs"
-        >
-          Sign up to continue!
-        </Heading>
+      <View style={styles.container}>
+        <Heading>Sign up to continue!</Heading>
 
         <VStack space={3} mt="5">
           <FormControl>
@@ -131,37 +121,39 @@ const SignupUser = ({ navigation }) => {
           </Button>
           <HStack mt="6" justifyContent="center"></HStack>
         </VStack>
-      </Box>
+      </View>
     </Center>
   );
 };
 const styles = StyleSheet.create({
-  header: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: COLORS.primary,
-  },
-  headerTitle: {
-    color: COLORS.white,
-    fontWeight: "bold",
-    fontSize: 23,
+  container: {
+    padding: 20,
+    width: "80%",
+    height: "95%",
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    backgroundColor: "#fff",
+    margin: 10,
+    elevation: 8,
   },
   btn: {
     height: 50,
-    width: 120,
+    width: "100%",
     backgroundColor: COLORS.main,
     marginTop: 20,
     borderRadius: 7,
     justifyContent: "center",
     alignItems: "center",
   },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+
   checkboxContainer: { display: "flex", flexDirection: "row" },
   checkbox: {
     display: "flex",
@@ -172,4 +164,4 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 });
-export default SignupUser;
+export default observer(SignupUser);

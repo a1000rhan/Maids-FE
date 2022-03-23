@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { Chip } from "react-native-paper";
 import { Avatar } from "native-base";
 import moment from "moment";
+import { observer } from "mobx-react";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -97,7 +98,7 @@ const MaidDetails = ({ route, navigation }) => {
   );
 };
 
-export default MaidDetails;
+export default observer(MaidDetails);
 
 const styles = StyleSheet.create({
   header: {

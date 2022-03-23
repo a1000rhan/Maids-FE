@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import LogoutIcon from "react-native-vector-icons/MaterialIcons";
 import User from "../components/User/User";
 import SignupUser from "../components/AuthUser/SignupUser";
-
+import { observer } from "mobx-react";
 import MaidProfile from "../components/Maids/MaidProfile";
 import BookingItem from "../components/Booking/BookingItem";
 import SigninUser from "../components/AuthUser/SigninUser";
@@ -52,10 +52,15 @@ function CustomDrawerContent(props) {
         }}
       />
       <DrawerItemList {...props} />
-      <Pressable style={styles.logout} onPress={() => userAuthStore.signOut()}>
-        <LogoutIcon size={22} color={COLORS.main} name="logout" />
-        <Text style={styles.logText}>Logout</Text>
-      </Pressable>
+      {userAuthStore.user && maidAuthStore && (
+        <Pressable
+          style={styles.logout}
+          onPress={() => userAuthStore.signOut()}
+        >
+          <LogoutIcon size={22} color={COLORS.main} name="logout" />
+          <Text style={styles.logText}>Logout</Text>
+        </Pressable>
+      )}
     </DrawerContentScrollView>
   );
 }
@@ -128,46 +133,52 @@ const DrawerNavigator = () => {
         name="Profile"
         component={MaidProfile}
       />
-      {!userAuthStore.user ||
-        (!maidAuthStore.maid && (
-          <>
-            <Drawer.Screen
-              options={{
-                drawerActiveBackgroundColor: "#E7E6FF",
-                drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-                headerTintColor: "white",
-                drawerLabel: "Sign Up",
-                headerTitle: "Sign Up",
-                headerStyle: {
-                  backgroundColor: "#6867AC",
-                },
-                headerTitleStyle: { color: "white" },
-              }}
-              name="SignupUser"
-              component={SignupUser}
-            />
-            <Drawer.Screen
-              options={{
-                drawerActiveBackgroundColor: "#E7E6FF",
-                drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-                headerTintColor: "white",
-                drawerLabel: "Sign In",
-                headerTitle: "Sign In",
-                headerStyle: {
-                  backgroundColor: "#6867AC",
-                },
-                headerTitleStyle: { color: "white" },
-              }}
-              name="SignInUser"
-              component={SigninUser}
-            />
-          </>
-        ))}
+
+      {!userAuthStore.user && (
+        <>
+          {!maidAuthStore.maid && (
+            <>
+              <Drawer.Screen
+                options={{
+                  drawerActiveBackgroundColor: "#E7E6FF",
+                  drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+                  headerTintColor: "white",
+                  drawerLabel: "Sign Up",
+                  headerTitle: "Sign Up",
+                  headerStyle: {
+                    backgroundColor: "#6867AC",
+                  },
+                  headerTitleStyle: { color: "white" },
+                }}
+                name="SignupUser"
+                component={SignupUser}
+              />
+
+              <Drawer.Screen
+                options={{
+                  drawerActiveBackgroundColor: "#E7E6FF",
+                  drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+                  headerTintColor: "white",
+                  drawerLabel: "Sign In",
+                  headerTitle: "Sign In",
+                  headerStyle: {
+                    backgroundColor: "#6867AC",
+                  },
+                  headerTitleStyle: { color: "white" },
+                }}
+                name="SignInUser"
+                component={SigninUser}
+              />
+            </>
+          )}
+        </>
+      )}
     </Drawer.Navigator>
   );
 };
 
-export default DrawerNavigator;
+export default observer(DrawerNavigator);
+
 const styles = StyleSheet.create({
   user: {
     display: "flex",
@@ -179,13 +190,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: "bold",
   },
-  logout: {
-    width: "95%",
-    alignSelf: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 20,
-  },
+  logout: ({ pressed }) => [
+    {
+      backgroundColor: pressed ? COLORS.secondary : "white",
+      width: "95%",
+      alignSelf: "center",
+      flexDirection: "row",
+      alignItems: "center",
+      marginLeft: 20,
+    },
+  ],
   logText: {
     fontWeight: "bold",
     marginLeft: 10,
