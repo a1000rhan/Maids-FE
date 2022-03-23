@@ -16,7 +16,10 @@ const Days = ({ item, setMyDay, myDay }) => {
   };
   return (
     <Chip
-      style={{ backgroundColor: isSelected ? "#6867AC" : "#E3E3E4" }}
+      style={{
+        margin: 2,
+        backgroundColor: isSelected ? "#6867AC" : "#E3E3E4",
+      }}
       onPress={() => handleSelect(item)}
       selected={isSelected}
     >

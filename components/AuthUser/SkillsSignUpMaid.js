@@ -20,7 +20,8 @@ import maidAuthStore from "../../store/maidAuthStore";
 
 const SkillsSignUpMaid = ({ route, navigation }) => {
   const toast = useToast();
-
+  const [timePerid, setTimePerid] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [user, setUser] = useState({
     username: route.params.user.username,
     password: route.params.user.password,
@@ -32,34 +33,45 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     languages: route.params.user.languages,
     price: 0,
     image: "",
-    availability: [],
+    availability: [{ day: [], time: "", endDate: "", startDate: "" }],
     experience: 0,
     skill: [],
     address: "",
   });
   //.............Image Picker...............
 
-  const openImagePickerAsync = async () => {
-    let photo = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (photo.cancelled === true) {
-      return;
+  const _pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.cancelled) {
+        const localUri = result.uri;
+        const trimmedURI =
+          Platform.OS === "android"
+            ? result.uri
+            : result.uri.replace("file://", "");
+
+        const filename = localUri.split("/").pop();
+        const match = /.(\w+)$/.exec(filename);
+        const image = {
+          uri: trimmedURI,
+          name: filename,
+          // type: result.type,
+          // type: mime?.getType(trimmedURI),
+          type: match ? `image/${match[1]}` : image,
+        };
+
+        setUploadedImage(localUri);
+        setUser({ ...user, image: image });
+      }
+    } catch (error) {
+      console.log(error);
     }
-    // ImagePicker saves the taken photo to disk and returns a local URI to it
-    let localUri = photo.uri;
-
-    let filename = localUri.split("/").pop();
-
-    // Infer the type of the image
-    let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
-
-    // Assume "photo" is the name of the form field the server expects
-    setUser({ ...user, image: localUri });
   };
 
   //................Days....................
@@ -77,23 +89,19 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
   const showDays = days.map((item, index) => (
     <Days myDay={myDay} setMyDay={setMyDay} item={item} key={index} />
   ));
-  //.................................
 
   //............Time..................
   const [TimeStart, setTimeStart] = useState(new Date());
   const [TimeEnd, setTimeEnd] = useState(new Date());
-  const [timePerid, setTimePerid] = useState("");
 
   const [modeTime, setModeTime] = useState("time");
-  //.....................................
 
   //.............Date...................
   const [modeDate, setModeDate] = useState("date");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  //......................................
-
+  //.......SUBMIT......................
   const handleSubmit = () => {
     setTimePerid(
       `${moment(TimeStart).format("HH:MM")} - ${moment(TimeEnd).format(
@@ -140,10 +148,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
 
           <FormControl>
             <FormControl.Label>Image</FormControl.Label>
-            <TouchableOpacity
-              style={styles.addBtn}
-              onPress={openImagePickerAsync}
-            >
+            <TouchableOpacity style={styles.addBtn} onPress={_pickImage}>
               <Text style={styles.photoTxtBtn}>Choose a Photo</Text>
             </TouchableOpacity>
           </FormControl>
@@ -273,6 +278,7 @@ const styles = StyleSheet.create({
     paddingTop: 3,
   },
   chips: {
+    marginBottom: 20,
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",

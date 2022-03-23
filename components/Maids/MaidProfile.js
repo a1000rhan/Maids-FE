@@ -223,7 +223,6 @@ const MaidProfile = ({ navigation }) => {
                   mode={mode}
                   is24Hour={true}
                   onChange={onChange}
-                  theam
                 />
               )}
             </>
@@ -314,7 +313,11 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     flex: 1,
   },
-  chip: { backgroundColor: "#6867AC", marginBottom: 5, marginRight: 5 },
+  chip: {
+    backgroundColor: "#6867AC",
+    marginBottom: 5,
+    marginRight: 5,
+  },
   chipDay: {
     backgroundColor: "#6867AC",
     marginBottom: 5,

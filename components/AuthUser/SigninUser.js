@@ -6,6 +6,7 @@ import {
   Heading,
   HStack,
   Input,
+  useToast,
   VStack,
   Text,
 } from "native-base";
@@ -17,13 +18,14 @@ import authStore from "../../store/userAuthStore";
 import { observer } from "mobx-react";
 
 const SigninUser = ({ navigation }) => {
+  const toast = useToast();
+
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
-  const handleSubmit = async () => {
-    await authStore.signInUser(user);
-    if (authStore.user) navigation.replace("HomeScreen");
+  const handleSubmit = () => {
+    authStore.signInUser(user, navigation, toast);
   };
 
   return (

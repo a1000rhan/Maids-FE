@@ -11,17 +11,22 @@ class UserAuthStore {
   constructor() {
     makeAutoObservable(this, {});
   }
-  setUser = (token) => {
+  setUser = (token, type) => {
     AsyncStorage.setItem("myToken", token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
     this.user = decode(token);
   };
 
-  signInUser = async (user) => {
+  signInUser = async (user, navigation, toast) => {
     try {
-      const resp = await api.post("/signinUser", user);
+      const resp = await api.post("/user/signin", user);
+
       this.setUser(resp.data.token);
       this.loading = false;
+      toast.show({
+        title: "Sign in Successfully",
+        status: "success",
+      });
       navigation.navigate("Maids");
     } catch (error) {
       console.log(
@@ -33,11 +38,10 @@ class UserAuthStore {
 
   signUpUser = async (user, navigation) => {
     try {
-      const resp = await api.post("/signupUser", user);
+      const resp = await api.post("/user/signup", user);
       this.setUser(resp.data.token);
       this.loading = false;
       navigation.navigate("Maids");
-      await profileStore.assignProfileToUser();
     } catch (error) {
       console.log(
         "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",

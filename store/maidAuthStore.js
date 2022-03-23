@@ -19,7 +19,7 @@ class MaidAuthStore {
 
   signInMaid = async (maid) => {
     try {
-      const resp = await api.post("/signinMaid", maid);
+      const resp = await api.post("/maid/signin", maid);
       this.setMaid(resp.data.token);
     } catch (error) {
       console.log(
@@ -31,18 +31,8 @@ class MaidAuthStore {
 
   signUpMaid = async (maid) => {
     try {
-      const formData = new FormData();
-
-      for (const key in maid) formData.append(key, maid[key]);
-
-      const resp = await api.post("/signupMaid", maid);
-      console.log(
-        "🚀 ~ file: maidAuthStore.js ~ line 39 ~ MaidAuthStore ~ signUpMaid= ~ resp",
-        resp
-      );
-
+      const res = await api("maid/signup", maid);
       this.setMaid(resp.data.token);
-      await profileStore.assignProfileToUser();
     } catch (error) {
       console.log(
         "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",

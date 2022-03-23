@@ -1,20 +1,36 @@
 import React from "react";
 import Home from "../components/Home";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import MaidsList from "../components/Maids/MaidsList";
-import { Avatar } from "native-base";
+import { Avatar, HStack } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
+import LogoutIcon from "react-native-vector-icons/MaterialIcons";
 import User from "../components/User/User";
 import SignupUser from "../components/AuthUser/SignupUser";
 
 import MaidProfile from "../components/Maids/MaidProfile";
 import BookingItem from "../components/Booking/BookingItem";
+import SigninUser from "../components/AuthUser/SigninUser";
+import maidAuthStore from "../store/maidAuthStore";
+import userAuthStore from "../store/userAuthStore";
+import COLORS from "../components/AuthUser/color";
+
 function CustomDrawerContent(props) {
+  const checkUser = () => {
+    if (userAuthStore.user) {
+      return userAuthStore.user.username;
+    } else if (maidAuthStore.maid) {
+      return maidAuthStore.maid.username;
+    } else {
+      return "Guest";
+    }
+  };
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.user}>
@@ -25,7 +41,7 @@ function CustomDrawerContent(props) {
             uri: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
           }}
         />
-        <Text style={styles.username}>My Name</Text>
+        <Text style={styles.username}>{checkUser()}</Text>
       </View>
       <View
         style={{
@@ -36,6 +52,10 @@ function CustomDrawerContent(props) {
         }}
       />
       <DrawerItemList {...props} />
+      <Pressable style={styles.logout} onPress={() => userAuthStore.signOut()}>
+        <LogoutIcon size={22} color={COLORS.main} name="logout" />
+        <Text style={styles.logText}>Logout</Text>
+      </Pressable>
     </DrawerContentScrollView>
   );
 }
@@ -56,7 +76,12 @@ const DrawerNavigator = () => {
           },
           drawerActiveBackgroundColor: "#E7E6FF",
           drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-
+          headerTitle: () => {
+            <Text>
+              {"Maids"}
+              <Icon name="home-outline" size={22} color={color} />
+            </Text>;
+          },
           headerShown: false,
           headerTitleStyle: { fontSize: 40, color: "white" },
         }}
@@ -103,21 +128,41 @@ const DrawerNavigator = () => {
         name="Profile"
         component={MaidProfile}
       />
-      <Drawer.Screen
-        options={{
-          drawerActiveBackgroundColor: "#E7E6FF",
-          drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-          headerTintColor: "white",
-          drawerLabel: "Sign Up",
-          headerTitle: "Sign Up",
-          headerStyle: {
-            backgroundColor: "#6867AC",
-          },
-          headerTitleStyle: { color: "white" },
-        }}
-        name="SignupUser"
-        component={SignupUser}
-      />
+      {!userAuthStore.user ||
+        (!maidAuthStore.maid && (
+          <>
+            <Drawer.Screen
+              options={{
+                drawerActiveBackgroundColor: "#E7E6FF",
+                drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+                headerTintColor: "white",
+                drawerLabel: "Sign Up",
+                headerTitle: "Sign Up",
+                headerStyle: {
+                  backgroundColor: "#6867AC",
+                },
+                headerTitleStyle: { color: "white" },
+              }}
+              name="SignupUser"
+              component={SignupUser}
+            />
+            <Drawer.Screen
+              options={{
+                drawerActiveBackgroundColor: "#E7E6FF",
+                drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+                headerTintColor: "white",
+                drawerLabel: "Sign In",
+                headerTitle: "Sign In",
+                headerStyle: {
+                  backgroundColor: "#6867AC",
+                },
+                headerTitleStyle: { color: "white" },
+              }}
+              name="SignInUser"
+              component={SigninUser}
+            />
+          </>
+        ))}
     </Drawer.Navigator>
   );
 };
@@ -133,5 +178,17 @@ const styles = StyleSheet.create({
   username: {
     marginLeft: 10,
     fontWeight: "bold",
+  },
+  logout: {
+    width: "95%",
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+  },
+  logText: {
+    fontWeight: "bold",
+    marginLeft: 10,
+    color: COLORS.main,
   },
 });
