@@ -1,13 +1,16 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import profileStore from "../../store/profileStore";
+import { ActivityIndicator, Colors } from "react-native-paper";
 const Loading = () => {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <ActivityIndicator animating={true} color="purple" size="large" />
+    </View>
+  );
 };
 
 export default Loading;
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center" },
-  spinner: { alignSelf: "center" },
 });
