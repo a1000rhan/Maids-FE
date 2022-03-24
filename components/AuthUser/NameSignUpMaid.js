@@ -16,6 +16,8 @@ import { Chip } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import COLORS from "./color";
+import { observer } from "mobx-react";
+
 import data from "../../data";
 
 const NameSignUpMaid = ({ navigation }) => {
@@ -34,9 +36,9 @@ const NameSignUpMaid = ({ navigation }) => {
   //............Language....................
   const [language, setLanguage] = useState();
   const [newLanguage, setNewLanguage] = useState([]);
+
   const handelLanguageChange = (event) => {
-    const lang = event;
-    setLanguage(lang);
+    setLanguage(event);
   };
 
   //...Add Languages...
@@ -61,8 +63,7 @@ const NameSignUpMaid = ({ navigation }) => {
   const [newSkills, setNewSkills] = useState([]);
 
   const handelChangeSkill = (event) => {
-    const skill = event;
-    setSkills(skill);
+    setSkills(event);
   };
 
   const addNewSkill = () => {
@@ -78,8 +79,19 @@ const NameSignUpMaid = ({ navigation }) => {
 
   //.............Submit...................
   const handleSubmit = () => {
-    setUser({ ...user, languages: newLanguage, skills: newSkills });
-    navigation.navigate("SkillsSignUpMaid", { user: user });
+    console.log(
+      "🚀 ~ file: NameSignUpMaid.js ~ line 87 ~ handleSubmit ~ user",
+      user
+    );
+    let user2 = {
+      ...user,
+      languages: [...newLanguage],
+      skills: [...newSkills],
+    };
+    setUser(user2);
+    navigation.navigate("SkillsSignUpMaid", {
+      user: user2,
+    });
   };
 
   return (
@@ -178,6 +190,8 @@ const NameSignUpMaid = ({ navigation }) => {
   );
 };
 
+export default observer(NameSignUpMaid);
+
 const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
@@ -224,4 +238,3 @@ const styles = StyleSheet.create({
   chipText: { color: "white", fontWeight: "bold" },
   icon: { width: 50, alignSelf: "flex-end" },
 });
-export default NameSignUpMaid;

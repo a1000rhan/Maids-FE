@@ -38,10 +38,6 @@ const MaidsList = ({ navigation }) => {
     .map((maid) => (
       <MaidItem maid={maid} key={maid._id} navigation={navigation} />
     ));
-  console.log(
-    "🚀 ~ file: MaidsList.js ~ line 31 ~ MaidsList ~ maidsArr",
-    maidsArr
-  );
 
   return (
     <>

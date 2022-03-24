@@ -27,10 +27,6 @@ function CustomDrawerContent(props) {
     if (userAuthStore.user || maidAuthStore.maid) {
     }
   };
-  console.log(
-    "🚀 ~ file: CustomDrawerContent.js ~ line 34 ~ checkForLogout ~ checkForLogout",
-    checkForLogout
-  );
 
   return (
     <DrawerContentScrollView {...props}>
