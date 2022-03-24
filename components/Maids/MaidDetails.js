@@ -21,21 +21,21 @@ const MaidDetails = ({ route, navigation }) => {
   const maid = route.params.maid;
 
   //languages List
-  const langArr = maid.languages.map((language) => (
-    <Chip style={styles.langBox}>
+  const langArr = maid.languages.map((language, index) => (
+    <Chip key={index} style={styles.langBox}>
       <Text style={styles.lang}>{language}</Text>
     </Chip>
   ));
   //Skill List
-  const skills = maid.skills.map((skill) => (
-    <Chip style={styles.skillBox}>
+  const skills = maid.skills.map((skill, index) => (
+    <Chip key={index} style={styles.skillBox}>
       <Text style={styles.skill}>{skill}</Text>
     </Chip>
   ));
 
   //Availability
-  const availability = maid.availability.map((ava) => (
-    <View style={styles.availableBox}>
+  const availability = maid.availability.map((ava, index) => (
+    <View key={index} style={styles.availableBox}>
       <Chip style={styles.availableDayBox}>
         <Text style={styles.days}>{ava.day}:</Text>
       </Chip>

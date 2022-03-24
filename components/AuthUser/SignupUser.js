@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   Center,
   FormControl,
@@ -10,7 +9,6 @@ import {
   useToast,
   VStack,
   Text,
-  CheckBox,
 } from "native-base";
 import { StyleSheet, View } from "react-native";
 
@@ -37,7 +35,7 @@ const SignupUser = ({ navigation }) => {
   const handleSubmit = async () => {
     checked == "user"
       ? userAuthStore.signUpUser(user, toast, navigation)
-      : maidAuthStore.signUpMaid(user, navigation);
+      : maidAuthStore.signUpMaid(user, toast, navigation);
   };
 
   return (
@@ -88,12 +86,7 @@ const SignupUser = ({ navigation }) => {
 
           <FormControl>
             <FormControl.Label>Confirm Password</FormControl.Label>
-            <Input
-              type="password"
-              onChangeText={(value) =>
-                setUser({ ...user, confirmpassword: value })
-              }
-            />
+            <Input type="password" onChangeText={(value) => {}} />
           </FormControl>
           <RadioButton.Group style={styles.checkboxContainer}>
             <View style={styles.checkbox}>
@@ -118,7 +111,7 @@ const SignupUser = ({ navigation }) => {
             </View>
           </RadioButton.Group>
           <Button style={styles.btn} onPress={handleSubmit}>
-            Next
+            Sign Up
           </Button>
           <HStack mt="6" justifyContent="center"></HStack>
         </VStack>

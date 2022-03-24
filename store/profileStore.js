@@ -14,7 +14,7 @@ class ProfileStore {
     const res = await api.get("/profiles");
   };
 
-  updateProfile = async (profile) => {
+  updateProfile = async (profile, navigation) => {
     try {
       const formData = new FormData();
 
@@ -29,11 +29,9 @@ class ProfileStore {
           return formData;
         },
       });
+      navigation.navigate("Maids");
     } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",
-        error
-      );
+      console.log(error);
     }
   };
 }

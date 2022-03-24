@@ -27,23 +27,29 @@ class MaidAuthStore {
       });
       navigation.navigate("Maids");
     } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 25 ~ AuthStore ~ signIn= ~ error",
-        error
-      );
+      console.log(error);
     }
   };
 
   signUpMaid = async (maid, toast, navigation) => {
+    console.log(
+      "🚀 ~ file: maidAuthStore.js ~ line 38 ~ MaidAuthStore ~ signUpMaid= ~ maid",
+      maid
+    );
     try {
-      const res = await api("maid/signup", maid);
-      this.setMaid(resp.data.token);
+      const res = await api.post("/maid/signup", maid);
+      this.setMaid(res.data.token);
+      toast.show({
+        title: "Sign in Successfully",
+        status: "success",
+      });
       navigation.navigate("NameSignUpMaid");
     } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",
-        error
-      );
+      toast.show({
+        title: "Couldn't Sign up",
+        status: "error",
+      });
+      console.log(error);
     }
   };
   signOut = async () => {

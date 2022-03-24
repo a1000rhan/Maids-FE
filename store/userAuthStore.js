@@ -29,10 +29,7 @@ class UserAuthStore {
       });
       navigation.navigate("Maids");
     } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 25 ~ AuthStore ~ signIn= ~ error",
-        error
-      );
+      console.log(error);
     }
   };
 
@@ -47,10 +44,7 @@ class UserAuthStore {
       });
       navigation.navigate("Maids");
     } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",
-        error
-      );
+      console.log(error);
     }
   };
 
