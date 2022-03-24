@@ -39,7 +39,7 @@ class ProfileStore {
           return formData;
         },
       });
-
+      this.loading = false;
       toast.show({
         title: "Update Successfully",
         status: "success",
