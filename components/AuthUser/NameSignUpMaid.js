@@ -79,10 +79,6 @@ const NameSignUpMaid = ({ navigation }) => {
 
   //.............Submit...................
   const handleSubmit = () => {
-    console.log(
-      "🚀 ~ file: NameSignUpMaid.js ~ line 87 ~ handleSubmit ~ user",
-      user
-    );
     let user2 = {
       ...user,
       languages: [...newLanguage],
