@@ -20,10 +20,6 @@ import Loading from "../Loading";
 const MaidsList = ({ navigation }) => {
   const [query, setQuery] = useState("");
   if (profileStore.loading) return <Loading />;
-  console.log(
-    "🚀 ~ file: MaidsList.js ~ line 23 ~ MaidsList ~ profileStore.loading",
-    profileStore.loading
-  );
   const maidsArr = profileStore.profiles
     .filter(
       (maid) => maid.firstName && maid.lastName && maid.nationality

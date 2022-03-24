@@ -18,17 +18,27 @@ import data from "../../data";
 import IconEdit from "react-native-vector-icons/Feather";
 import { TextInput } from "react-native-gesture-handler";
 import profileStore from "../../store/profileStore";
+import maidAuthStore from "../../store/maidAuthStore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const MaidProfile = ({ navigation }) => {
   const [edit, setEdit] = useState(false);
-  const [profile, setProfile] = useState(data[0]);
-  const [skill, setSkill] = useState(data[0].skills.toString());
+  const [profile, setProfile] = useState(maidAuthStore.profile);
+  const [skill, setSkill] = useState(
+    maidAuthStore.profile.skills ? maidAuthStore.profile.skills : []
+  );
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("dateTime");
   const [show, setShow] = useState(false);
+  if (profile.skills) {
+    const skills = profile.skills.map((skill) => (
+      <Chip style={styles.chip}>
+        <Text style={styles.chipText}>{skill}</Text>
+      </Chip>
+    ));
+  }
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
@@ -47,29 +57,26 @@ const MaidProfile = ({ navigation }) => {
   const showTimepicker = () => {
     showMode("time");
   };
-  const skills = profile.skills.map((skill) => (
-    <Chip style={styles.chip}>
-      <Text style={styles.chipText}>{skill}</Text>
-    </Chip>
-  ));
   const languages = profile.languages.map((language) => (
     <Chip style={styles.chip}>
       <Text style={styles.chipText}>{language}</Text>
     </Chip>
   ));
-  const availability = profile.availability.map((availability) => (
-    <View style={styles.availTime}>
-      <Chip style={styles.chipDay}>
-        <Text style={styles.chipText}>{availability.day}</Text>
-      </Chip>
-      <Chip style={styles.timeChip}>
-        <Text style={styles.timeText}>
-          {moment(availability.timeStart).format("HH:MM")}-
-          {moment(availability.timeEnd).format("HH:MM")}
-        </Text>
-      </Chip>
-    </View>
-  ));
+  if (profile.availability) {
+    const availability = profile.availability.map((availability) => (
+      <View style={styles.availTime}>
+        <Chip style={styles.chipDay}>
+          <Text style={styles.chipText}>{availability.day}</Text>
+        </Chip>
+        <Chip style={styles.timeChip}>
+          <Text style={styles.timeText}>
+            {moment(availability.timeStart).format("HH:MM")}-
+            {moment(availability.timeEnd).format("HH:MM")}
+          </Text>
+        </Chip>
+      </View>
+    ));
+  }
   const handleName = (value) => {
     setProfile({ ...profile, name: value });
   };
@@ -173,7 +180,7 @@ const MaidProfile = ({ navigation }) => {
               onChangeText={handleSkill}
             />
           ) : (
-            <View style={styles.bubbles}>{skills}</View>
+            profile.skills && <View style={styles.bubbles}>{skills}</View>
           )}
         </HStack>
         <HStack style={styles.headLine}>

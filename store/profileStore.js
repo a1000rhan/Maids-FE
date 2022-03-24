@@ -1,13 +1,12 @@
 import { makeAutoObservable } from "mobx";
 import api from "./api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class ProfileStore {
   profiles = [];
   loading = true;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {});
   }
 
   fetchProfiles = async () => {
@@ -43,5 +42,5 @@ class ProfileStore {
 }
 
 const profileStore = new ProfileStore();
-
+profileStore.fetchProfiles();
 export default profileStore;
