@@ -50,15 +50,15 @@ const MaidDetails = ({ route, navigation }) => {
 
   return (
     <>
+      <Icon
+        style={styles.icon}
+        color={"white"}
+        name="arrow-left"
+        size={24}
+        onPress={() => navigation.goBack()}
+      />
       {/* header */}
       <View style={styles.header}>
-        <Icon
-          style={styles.icon}
-          color={"white"}
-          name="arrow-left"
-          size={22}
-          onPress={() => navigation.navigate("List")}
-        />
         <View style={styles.details}>
           <Avatar
             source={{
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     height: 230,
     borderRadius: 20,
     display: "flex",
-    justifyContent: "space-around",
 
     flexDirection: "row",
   },
