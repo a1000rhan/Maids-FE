@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import decode from "jwt-decode";
-import api from "../api";
+import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import profileStore from "./profileStore";
 
