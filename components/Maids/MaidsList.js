@@ -16,9 +16,14 @@ import profileStore from "../../store/profileStore";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 import { observer } from "mobx-react";
+import Loading from "../Loading";
 const MaidsList = ({ navigation }) => {
   const [query, setQuery] = useState("");
-
+  if (profileStore.loading) return <Loading />;
+  console.log(
+    "🚀 ~ file: MaidsList.js ~ line 23 ~ MaidsList ~ profileStore.loading",
+    profileStore.loading
+  );
   const maidsArr = profileStore.profiles
     .filter(
       (maid) => maid.firstName && maid.lastName && maid.nationality

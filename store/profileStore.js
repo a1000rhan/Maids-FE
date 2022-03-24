@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import api from "../api";
+import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class ProfileStore {
-  profiles = null;
+  profiles = [];
   loading = true;
 
   constructor() {
@@ -11,7 +11,13 @@ class ProfileStore {
   }
 
   fetchProfiles = async () => {
-    const res = await api.get("/profiles");
+    try {
+      const res = await api.get("/profiles");
+      this.profiles = res.data;
+      this.loading = false;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   updateProfile = async (profile, navigation) => {

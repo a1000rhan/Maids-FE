@@ -17,6 +17,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import data from "../../data";
 import IconEdit from "react-native-vector-icons/Feather";
 import { TextInput } from "react-native-gesture-handler";
+import profileStore from "../../store/profileStore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -87,6 +88,7 @@ const MaidProfile = ({ navigation }) => {
   const handleSubmit = (value) => {
     let tempArr = skill.split(",");
     setProfile({ ...profile, skills: tempArr });
+    profileStore.updateProfile(profile);
     setEdit(false);
   };
   //   const handleSkills = (value) => {
@@ -247,7 +249,9 @@ const MaidProfile = ({ navigation }) => {
                 onChangeText={handleAbout}
               />
             ) : (
-              <Text style={styles.defaultSize}>{profile.about}</Text>
+              <View>
+                <Text style={styles.defaultSize}>{profile.about}</Text>
+              </View>
             )}
           </View>
         </View>
