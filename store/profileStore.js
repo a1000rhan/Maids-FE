@@ -21,14 +21,14 @@ class ProfileStore {
   };
 
   updateProfile = async (profile, toast, navigation) => {
+    console.log(
+      "🚀 ~ file: profileStore.js ~ line 24 ~ ProfileStore ~ updateProfile= ~ profile",
+      profile
+    );
     try {
       const formData = new FormData();
 
       for (const key in profile) formData.append(key, profile[key]);
-      console.log(
-        "🚀 ~ file: profileStore.js ~ line 28 ~ ProfileStore ~ updateProfile= ~ formData",
-        formData
-      );
 
       const res = await api({
         method: "PUT",

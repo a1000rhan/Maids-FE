@@ -33,12 +33,12 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     lastName: route.params.user.lastName,
     civilId: route.params.user.civilId,
     nationality: route.params.user.nationality,
-    languages: route.params.user.languages,
-    price: 0,
+    languages: [route.params.user.languages],
+    price: 5,
     image: "",
-    availability: [{ day: [], time: "", endDate: "", startDate: "" }],
+    availability: [],
     experience: 0,
-    skill: [],
+    skill: [route.params.user.skills],
     address: "",
   });
   //.............Image Picker...............
@@ -70,6 +70,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
         };
 
         setUploadedImage(localUri);
+
         setUser({ ...user, image: myImage });
       }
     } catch (error) {
@@ -93,6 +94,15 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     <Days myDay={myDay} setMyDay={setMyDay} item={item} key={index} />
   ));
 
+  const thedays = myDay.map((d) => [
+    {
+      day: d.day,
+      time: timePerid,
+      startDate: startDate,
+      endDate: endDate,
+    },
+  ]);
+
   //............Time..................
   const [TimeStart, setTimeStart] = useState(new Date());
   const [TimeEnd, setTimeEnd] = useState(new Date());
@@ -113,21 +123,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
       )}`
     );
 
-    let user2 = {
-      ...user,
-      availability: [
-        {
-          day: myDay,
-          time: timePerid,
-          startDate: startDate,
-          endDate: endDate,
-        },
-      ],
-    };
-
-    setUser(user2);
-
-    profileStore.updateProfile(user2, toast, navigation);
+    profileStore.updateProfile(user, toast, navigation);
   };
   return (
     <Center w="100%">

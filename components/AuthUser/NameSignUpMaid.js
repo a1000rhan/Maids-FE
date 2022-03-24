@@ -163,13 +163,16 @@ const NameSignUpMaid = ({ navigation }) => {
             </FormControl>
             <FormControl>
               <FormControl.Label>Skills</FormControl.Label>
-              <Input type="text" onChangeText={handelChangeSkill} />
+              <Input
+                type="text"
+                value={skills}
+                onChangeText={handelChangeSkill}
+              />
               <View style={styles.icon}>
                 <Icon.Button
                   onPress={addNewSkill}
                   backgroundColor={COLORS.main}
                   size={30}
-                  value={skills}
                   name="add"
                 />
               </View>
