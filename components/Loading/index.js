@@ -1,13 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import * as Progress from "react-native-progress";
 import profileStore from "../../store/profileStore";
 const Loading = () => {
-  return (
-    <View style={styles.container}>
-      <Progress.Circle size={70} indeterminate={true} style={styles.spinner} />
-    </View>
-  );
+  return <View style={styles.container}></View>;
 };
 
 export default Loading;
