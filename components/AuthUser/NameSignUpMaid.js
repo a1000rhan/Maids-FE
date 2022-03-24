@@ -27,8 +27,10 @@ const NameSignUpMaid = ({ navigation }) => {
     civilId: "",
     nationality: "",
     languages: [],
+    skills: [],
     address: "",
   });
+
   //............Language....................
   const [language, setLanguage] = useState();
   const [newLanguage, setNewLanguage] = useState([]);
@@ -73,12 +75,13 @@ const NameSignUpMaid = ({ navigation }) => {
       <Text style={styles.chipText}>{skill}</Text>
     </Chip>
   ));
-  //.............Submit...................
-  const handleSubmit = async () => {
-    setUser({ ...user, languages: newLanguage, skills: newSkills });
 
+  //.............Submit...................
+  const handleSubmit = () => {
+    setUser({ ...user, languages: newLanguage, skills: newSkills });
     navigation.navigate("SkillsSignUpMaid", { user: user });
   };
+
   return (
     <ScrollView>
       <Center w="100%">

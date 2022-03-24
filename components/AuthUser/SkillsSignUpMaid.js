@@ -20,6 +20,10 @@ import maidAuthStore from "../../store/maidAuthStore";
 import profileStore from "../../store/profileStore";
 
 const SkillsSignUpMaid = ({ route, navigation }) => {
+  console.log(
+    "🚀 ~ file: SkillsSignUpMaid.js ~ line 24 ~ SkillsSignUpMaid ~ oute.params",
+    route.params
+  );
   const toast = useToast();
   const [timePerid, setTimePerid] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -118,10 +122,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
         },
       ],
     });
-    console.log(
-      "🚀 ~ file: SkillsSignUpMaid.js ~ line 122 ~ handleSubmit ~ user",
-      user
-    );
+
     profileStore.updateProfile(user, navigation);
   };
   return (
