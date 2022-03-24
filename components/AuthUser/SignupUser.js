@@ -20,9 +20,10 @@ import COLORS from "../AuthUser/color";
 
 import userAuthStore from "../../store/userAuthStore";
 import { observer } from "mobx-react";
+import maidAuthStore from "../../store/maidAuthStore";
 
 const SignupUser = ({ navigation }) => {
-  const [checked, setChecked] = React.useState("user");
+  const [checked, setChecked] = useState("user");
 
   const toast = useToast();
   const [user, setUser] = useState({
@@ -35,8 +36,8 @@ const SignupUser = ({ navigation }) => {
 
   const handleSubmit = async () => {
     checked == "user"
-      ? userAuthStore.signUpUser(user, navigation)
-      : navigation.navigate("NameSignUpMaid", { user: user });
+      ? userAuthStore.signUpUser(user, toast, navigation)
+      : maidAuthStore.signUpMaid(user, navigation);
   };
 
   return (
@@ -125,6 +126,8 @@ const SignupUser = ({ navigation }) => {
     </Center>
   );
 };
+export default observer(SignupUser);
+
 const styles = StyleSheet.create({
   container: {
     padding: 20,
@@ -164,4 +167,3 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 });
-export default observer(SignupUser);

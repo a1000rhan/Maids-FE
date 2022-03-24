@@ -16,16 +16,22 @@ import COLORS from "./color";
 import { StyleSheet, View } from "react-native";
 import authStore from "../../store/userAuthStore";
 import { observer } from "mobx-react";
+import { RadioButton } from "react-native-paper";
+import maidAuthStore from "../../store/maidAuthStore";
 
 const SigninUser = ({ navigation }) => {
   const toast = useToast();
+
+  const [checked, setChecked] = useState("user");
 
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
   const handleSubmit = () => {
-    authStore.signInUser(user, navigation, toast);
+    checked == "user"
+      ? authStore.signInUser(user, navigation, toast)
+      : maidAuthStore.signInMaid(user, navigation, toast);
   };
 
   return (
@@ -47,6 +53,30 @@ const SigninUser = ({ navigation }) => {
               onChangeText={(value) => setUser({ ...user, password: value })}
             />
           </FormControl>
+
+          <RadioButton.Group style={styles.checkboxContainer}>
+            <View style={styles.checkbox}>
+              <Text>
+                <RadioButton
+                  value="user"
+                  status={checked === "user" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("user")}
+                />
+                User
+              </Text>
+            </View>
+            <View style={styles.checkbox}>
+              <Text>
+                <RadioButton
+                  value="maid"
+                  status={checked === "maid" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("maid")}
+                />
+                Maid
+              </Text>
+            </View>
+          </RadioButton.Group>
+
           <Button style={styles.btn} mt="2" onPress={handleSubmit}>
             Sign in
           </Button>
@@ -75,6 +105,7 @@ const SigninUser = ({ navigation }) => {
     </Center>
   );
 };
+export default observer(SigninUser);
 
 const styles = StyleSheet.create({
   container: {
@@ -104,6 +135,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  checkboxContainer: { display: "flex", flexDirection: "row" },
+  checkbox: {
+    display: "flex",
+    flexDirection: "row",
+  },
 });
-
-export default observer(SigninUser);

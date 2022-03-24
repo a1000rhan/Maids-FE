@@ -17,10 +17,15 @@ class MaidAuthStore {
     this.maid = decode(token);
   };
 
-  signInMaid = async (maid) => {
+  signInMaid = async (maid, navigation, toast) => {
     try {
       const resp = await api.post("/maid/signin", maid);
       this.setMaid(resp.data.token);
+      toast.show({
+        title: "Sign in Successfully",
+        status: "success",
+      });
+      navigation.navigate("Maids");
     } catch (error) {
       console.log(
         "🚀 ~ file: authStore.js ~ line 25 ~ AuthStore ~ signIn= ~ error",
@@ -29,10 +34,11 @@ class MaidAuthStore {
     }
   };
 
-  signUpMaid = async (maid) => {
+  signUpMaid = async (maid, toast, navigation) => {
     try {
       const res = await api("maid/signup", maid);
       this.setMaid(resp.data.token);
+      navigation.navigate("NameSignUpMaid");
     } catch (error) {
       console.log(
         "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",

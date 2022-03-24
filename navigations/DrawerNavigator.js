@@ -1,15 +1,8 @@
 import React from "react";
-import Home from "../components/Home";
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import MaidsList from "../components/Maids/MaidsList";
-import { Avatar, HStack } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
-import LogoutIcon from "react-native-vector-icons/MaterialIcons";
 import User from "../components/User/User";
 import SignupUser from "../components/AuthUser/SignupUser";
 import { observer } from "mobx-react";
@@ -19,51 +12,8 @@ import SigninUser from "../components/AuthUser/SigninUser";
 import maidAuthStore from "../store/maidAuthStore";
 import userAuthStore from "../store/userAuthStore";
 import COLORS from "../components/AuthUser/color";
+import CustomDrawerContent from "./CustomDrawerContent";
 
-function CustomDrawerContent(props) {
-  const checkUser = () => {
-    if (userAuthStore.user) {
-      return userAuthStore.user.username;
-    } else if (maidAuthStore.maid) {
-      return maidAuthStore.maid.username;
-    } else {
-      return "Guest";
-    }
-  };
-
-  return (
-    <DrawerContentScrollView {...props}>
-      <View style={styles.user}>
-        <Avatar
-          w={50}
-          h={50}
-          source={{
-            uri: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
-          }}
-        />
-        <Text style={styles.username}>{checkUser()}</Text>
-      </View>
-      <View
-        style={{
-          borderBottomColor: "gray",
-          borderBottomWidth: 1,
-          width: "80%",
-          alignSelf: "center",
-        }}
-      />
-      <DrawerItemList {...props} />
-      {userAuthStore.user && maidAuthStore && (
-        <Pressable
-          style={styles.logout}
-          onPress={() => userAuthStore.signOut()}
-        >
-          <LogoutIcon size={22} color={COLORS.main} name="logout" />
-          <Text style={styles.logText}>Logout</Text>
-        </Pressable>
-      )}
-    </DrawerContentScrollView>
-  );
-}
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
@@ -133,46 +83,38 @@ const DrawerNavigator = () => {
         name="Profile"
         component={MaidProfile}
       />
-
-      {!userAuthStore.user && (
-        <>
-          {!maidAuthStore.maid && (
-            <>
-              <Drawer.Screen
-                options={{
-                  drawerActiveBackgroundColor: "#E7E6FF",
-                  drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-                  headerTintColor: "white",
-                  drawerLabel: "Sign Up",
-                  headerTitle: "Sign Up",
-                  headerStyle: {
-                    backgroundColor: "#6867AC",
-                  },
-                  headerTitleStyle: { color: "white" },
-                }}
-                name="SignupUser"
-                component={SignupUser}
-              />
-
-              <Drawer.Screen
-                options={{
-                  drawerActiveBackgroundColor: "#E7E6FF",
-                  drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-                  headerTintColor: "white",
-                  drawerLabel: "Sign In",
-                  headerTitle: "Sign In",
-                  headerStyle: {
-                    backgroundColor: "#6867AC",
-                  },
-                  headerTitleStyle: { color: "white" },
-                }}
-                name="SignInUser"
-                component={SigninUser}
-              />
-            </>
-          )}
-        </>
-      )}
+      <>
+        <Drawer.Screen
+          options={{
+            drawerActiveBackgroundColor: "#E7E6FF",
+            drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+            headerTintColor: "white",
+            drawerLabel: "Sign Up",
+            headerTitle: "Sign Up",
+            headerStyle: {
+              backgroundColor: "#6867AC",
+            },
+            headerTitleStyle: { color: "white" },
+          }}
+          name="SignupUser"
+          component={SignupUser}
+        />
+        <Drawer.Screen
+          options={{
+            drawerActiveBackgroundColor: "#E7E6FF",
+            drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+            headerTintColor: "white",
+            drawerLabel: "Sign In",
+            headerTitle: "Sign In",
+            headerStyle: {
+              backgroundColor: "#6867AC",
+            },
+            headerTitleStyle: { color: "white" },
+          }}
+          name="SignInUser"
+          component={SigninUser}
+        />
+      </>
     </Drawer.Navigator>
   );
 };

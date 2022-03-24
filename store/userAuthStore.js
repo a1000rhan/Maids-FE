@@ -36,11 +36,15 @@ class UserAuthStore {
     }
   };
 
-  signUpUser = async (user, navigation) => {
+  signUpUser = async (user, toast, navigation) => {
     try {
       const resp = await api.post("/user/signup", user);
       this.setUser(resp.data.token);
       this.loading = false;
+      toast.show({
+        title: "Sign in Successfully",
+        status: "success",
+      });
       navigation.navigate("Maids");
     } catch (error) {
       console.log(
