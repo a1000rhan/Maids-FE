@@ -18,6 +18,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import Days from "./Days";
 import maidAuthStore from "../../store/maidAuthStore";
 import profileStore from "../../store/profileStore";
+import { observer } from "mobx-react";
 
 const SkillsSignUpMaid = ({ route, navigation }) => {
   console.log(
@@ -25,7 +26,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     route.params
   );
   const toast = useToast();
-  const [timePerid, setTimePerid] = useState("");
+
   const [uploadedImage, setUploadedImage] = useState(null);
   const [user, setUser] = useState({
     firstName: route.params.user.firstName,
@@ -69,7 +70,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
         };
 
         setUploadedImage(localUri);
-        setUser({ ...user, image: myImage.uri });
+        setUser({ ...user, image: myImage });
       }
     } catch (error) {
       console.log(error);
@@ -95,6 +96,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
   //............Time..................
   const [TimeStart, setTimeStart] = useState(new Date());
   const [TimeEnd, setTimeEnd] = useState(new Date());
+  const [timePerid, setTimePerid] = useState("");
 
   const [modeTime, setModeTime] = useState("time");
 
@@ -111,7 +113,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
       )}`
     );
 
-    setUser({
+    let user2 = {
       ...user,
       availability: [
         {
@@ -121,9 +123,11 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
           endDate: endDate,
         },
       ],
-    });
+    };
 
-    profileStore.updateProfile(user, navigation);
+    setUser(user2);
+
+    profileStore.updateProfile(user2, toast, navigation);
   };
   return (
     <Center w="100%">
@@ -229,6 +233,8 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     </Center>
   );
 };
+export default observer(SkillsSignUpMaid);
+
 const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
@@ -294,4 +300,3 @@ const styles = StyleSheet.create({
     width: 80,
   },
 });
-export default SkillsSignUpMaid;

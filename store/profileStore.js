@@ -20,11 +20,15 @@ class ProfileStore {
     }
   };
 
-  updateProfile = async (profile, navigation) => {
+  updateProfile = async (profile, toast, navigation) => {
     try {
       const formData = new FormData();
 
       for (const key in profile) formData.append(key, profile[key]);
+      console.log(
+        "🚀 ~ file: profileStore.js ~ line 28 ~ ProfileStore ~ updateProfile= ~ formData",
+        formData
+      );
 
       const res = await api({
         method: "PUT",
@@ -35,9 +39,19 @@ class ProfileStore {
           return formData;
         },
       });
+
+      toast.show({
+        title: "Update Successfully",
+        status: "success",
+      });
       navigation.navigate("Maids");
+      this.fetchProfiles();
     } catch (error) {
       console.log(error);
+      toast.show({
+        title: "Update ",
+        status: "error",
+      });
     }
   };
 }
