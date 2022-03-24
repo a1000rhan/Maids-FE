@@ -17,15 +17,13 @@ import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Days from "./Days";
 import maidAuthStore from "../../store/maidAuthStore";
+import profileStore from "../../store/profileStore";
 
 const SkillsSignUpMaid = ({ route, navigation }) => {
   const toast = useToast();
   const [timePerid, setTimePerid] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [user, setUser] = useState({
-    username: route.params.user.username,
-    password: route.params.user.password,
-    email: route.params.user.email,
     firstName: route.params.user.firstName,
     lastName: route.params.user.lastName,
     civilId: route.params.user.civilId,
@@ -58,16 +56,16 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
 
         const filename = localUri.split("/").pop();
         const match = /.(\w+)$/.exec(filename);
-        const image = {
+        const myImage = {
           uri: trimmedURI,
           name: filename,
           // type: result.type,
           // type: mime?.getType(trimmedURI),
-          type: match ? `image/${match[1]}` : image,
+          type: match ? `image/${match[1]}` : myImage.uri,
         };
 
         setUploadedImage(localUri);
-        setUser({ ...user, image: image });
+        setUser({ ...user, image: myImage.uri });
       }
     } catch (error) {
       console.log(error);
@@ -120,8 +118,11 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
         },
       ],
     });
-
-    maidAuthStore.signUpMaid(user);
+    console.log(
+      "🚀 ~ file: SkillsSignUpMaid.js ~ line 122 ~ handleSubmit ~ user",
+      user
+    );
+    profileStore.updateProfile(user, navigation);
   };
   return (
     <Center w="100%">

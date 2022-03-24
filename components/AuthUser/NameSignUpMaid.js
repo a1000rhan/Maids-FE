@@ -18,13 +18,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import COLORS from "./color";
 import data from "../../data";
 
-const NameSignUpMaid = ({ navigation, route }) => {
+const NameSignUpMaid = ({ navigation }) => {
   const toast = useToast();
 
   const [user, setUser] = useState({
-    username: route.params.user.username,
-    password: route.params.user.password,
-    email: route.params.user.email,
     firstName: "",
     lastName: "",
     civilId: "",
@@ -68,6 +65,7 @@ const NameSignUpMaid = ({ navigation, route }) => {
 
   const addNewSkill = () => {
     setNewSkills([...newSkills, skills]);
+    setSkills("");
   };
 
   const SkillsList = newSkills.map((skill, index) => (
