@@ -168,7 +168,6 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
                   testID="dateTimePicker"
                   style={styles.picker}
                   value={TimeStart}
-                  style={{ flex: 1 }}
                   mode={modeTime}
                   onChange={(event, time) => setTimeStart(time)}
                 />
