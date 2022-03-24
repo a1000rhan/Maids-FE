@@ -21,11 +21,10 @@ const MaidsList = ({ navigation }) => {
   const [query, setQuery] = useState("");
   if (profileStore.loading) return <Loading />;
   const maidsArr = profileStore.profiles
-    .filter(
-      (maid) => maid.firstName && maid.lastName && maid.nationality
-      // maid.skills &&
-      // maid.languages
-    )
+    // .filter((maid) => maid.firstName && )
+    // maid.skills &&maid.lastName && maid.nationality
+    // maid.languages
+    // ()
     .filter(
       (maid) =>
         maid.owner.username.toLowerCase().includes(query.toLowerCase()) ||
@@ -34,10 +33,6 @@ const MaidsList = ({ navigation }) => {
     .map((maid) => (
       <MaidItem maid={maid} key={maid._id} navigation={navigation} />
     ));
-  console.log(
-    "🚀 ~ file: MaidsList.js ~ line 31 ~ MaidsList ~ maidsArr",
-    maidsArr
-  );
 
   return (
     <>

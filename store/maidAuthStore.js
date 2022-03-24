@@ -8,7 +8,7 @@ import profileStore from "./profileStore";
 
 class MaidAuthStore {
   maid = null;
-  // loading = true;
+  loading = true;
   profile = {};
   constructor() {
     makeAutoObservable(this, {});
@@ -69,10 +69,10 @@ class MaidAuthStore {
       const exp = decode(token).exp;
       if (exp > currentTime) {
         this.setMaid(token);
-        bookStore.fetchMaidBookings();
-        profileStore.profiles.find(
+        this.profile = profileStore.profiles.find(
           (profile) => profile.owner._id === this.maid._id
         );
+        this.loading = false;
       } else {
         this.signOut();
       }
