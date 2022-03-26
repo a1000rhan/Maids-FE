@@ -63,7 +63,7 @@ function CustomDrawerContent(props) {
   );
 }
 
-export default observer(CustomDrawerContent);
+export default CustomDrawerContent;
 
 const styles = StyleSheet.create({
   user: {
