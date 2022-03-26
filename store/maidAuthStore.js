@@ -2,12 +2,14 @@ import { makeAutoObservable } from "mobx";
 import decode from "jwt-decode";
 import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import bookStore from "./bookStore";
+import profileStore from "./profileStore";
 // import profileStore from "./profileStore";
 
 class MaidAuthStore {
   maid = null;
-  // loading = true;
-
+  loading = true;
+  profile = {};
   constructor() {
     makeAutoObservable(this, {});
   }
@@ -21,6 +23,7 @@ class MaidAuthStore {
     try {
       const resp = await api.post("/maid/signin", maid);
       this.setMaid(resp.data.token);
+      bookStore.fetchMaidBookings();
       toast.show({
         title: "Sign in Successfully",
         status: "success",
@@ -39,6 +42,7 @@ class MaidAuthStore {
     try {
       const res = await api.post("/maid/signup", maid);
       this.setMaid(res.data.token);
+
       toast.show({
         title: "Sign in Successfully",
         status: "success",
@@ -65,6 +69,10 @@ class MaidAuthStore {
       const exp = decode(token).exp;
       if (exp > currentTime) {
         this.setMaid(token);
+        this.profile = profileStore.profiles.find(
+          (profile) => profile.owner._id === this.maid._id
+        );
+        this.loading = false;
       } else {
         this.signOut();
       }

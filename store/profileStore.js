@@ -1,13 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import api from "./api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import maidAuthStore from "./maidAuthStore";
 
 class ProfileStore {
   profiles = [];
   loading = true;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {});
   }
 
   fetchProfiles = async () => {
@@ -29,7 +29,7 @@ class ProfileStore {
       const formData = new FormData();
 
       for (const key in profile) formData.append(key, profile[key]);
-
+      console.log(formData);
       const res = await api({
         method: "PUT",
         url: "/profiles",
@@ -39,7 +39,12 @@ class ProfileStore {
           return formData;
         },
       });
-      this.loading = false;
+      maidAuthStore.profile = res.data;
+      const tempArr = this.profiles.filter((profile) =>
+        profile._id === res.data._id ? res.data : profile
+      );
+      this.profiles = tempArr;
+
       toast.show({
         title: "Update Successfully",
         status: "success",
@@ -57,5 +62,5 @@ class ProfileStore {
 }
 
 const profileStore = new ProfileStore();
-
+profileStore.fetchProfiles();
 export default profileStore;

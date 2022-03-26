@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import decode from "jwt-decode";
 import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import bookStore from "./bookStore";
 // import profileStore from "./profileStore";
 
 class UserAuthStore {
@@ -61,6 +62,10 @@ class UserAuthStore {
       const exp = decode(token).exp;
       if (exp > currentTime) {
         this.setUser(token);
+        bookStore.fetchUserBookings();
+        profileStore.profiles.find(
+          (profile) => profile.owner._id === this.user._id
+        );
       } else {
         this.signOut();
       }
