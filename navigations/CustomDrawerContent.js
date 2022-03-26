@@ -25,6 +25,15 @@ function CustomDrawerContent(props) {
 
   const checkForLogout = () => {
     if (userAuthStore.user || maidAuthStore.maid) {
+      return (
+        <Pressable
+          style={styles.logout}
+          onPress={() => userAuthStore.signOut()}
+        >
+          <LogoutIcon size={22} color={COLORS.main} name="logout" />
+          <Text style={styles.logText}>Logout</Text>
+        </Pressable>
+      );
     }
   };
 
@@ -49,10 +58,7 @@ function CustomDrawerContent(props) {
         }}
       />
       <DrawerItemList {...props} />
-      <Pressable style={styles.logout} onPress={() => userAuthStore.signOut()}>
-        <LogoutIcon size={22} color={COLORS.main} name="logout" />
-        <Text style={styles.logText}>Logout</Text>
-      </Pressable>
+      {checkForLogout()}
     </DrawerContentScrollView>
   );
 }
