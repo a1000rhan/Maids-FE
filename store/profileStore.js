@@ -14,6 +14,7 @@ class ProfileStore {
     try {
       const res = await api.get("/profiles");
       this.profiles = res.data;
+
       this.loading = false;
     } catch (error) {
       console.log(error);
@@ -39,18 +40,22 @@ class ProfileStore {
           return formData;
         },
       });
-      maidAuthStore.profile = res.data;
+      console.log(
+        "🚀 ~ file: profileStore.js ~ line 43 ~ ProfileStore ~ updateProfile= ~ res",
+        res
+      );
+      // maidAuthStore.profile = res.data;
       const tempArr = this.profiles.filter((profile) =>
         profile._id === res.data._id ? res.data : profile
       );
       this.profiles = tempArr;
 
-      toast.show({
-        title: "Update Successfully",
-        status: "success",
-      });
-      navigation.navigate("Maids");
-      this.fetchProfiles();
+      // toast.show({
+      //   title: "Update Successfully",
+      //   status: "success",
+      // });
+      // navigation.navigate("Maids");
+      // this.fetchProfiles();
     } catch (error) {
       console.log(error);
       toast.show({

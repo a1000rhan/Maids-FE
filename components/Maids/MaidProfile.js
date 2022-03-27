@@ -24,15 +24,15 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const MaidProfile = ({ navigation }) => {
-  if (maidAuthStore.loading) return <Loading />;
+  if (maidAuthStore.loading || profileStore.loading) return <Loading />;
+  const maidProfile = profileStore.profiles.find(
+    (profile) => profile.owner._id === maidAuthStore.maid._id
+  );
+
   const [edit, setEdit] = useState(false);
-  const [profile, setProfile] = useState(maidAuthStore.profile);
-  const [skill, setSkill] = useState(
-    maidAuthStore.profile.skills ? maidAuthStore.profile.skills : []
-  );
-  const [language, setLanguage] = useState(
-    maidAuthStore.profile.languages ? maidAuthStore.profile.languages : []
-  );
+  const [profile, setProfile] = useState(maidProfile);
+  const [skill, setSkill] = useState(maidProfile.skills);
+  const [language, setLanguage] = useState(maidProfile.languages);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("dateTime");
   const [show, setShow] = useState(false);

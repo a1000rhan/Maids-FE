@@ -3,7 +3,7 @@ import decode from "jwt-decode";
 import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import bookStore from "./bookStore";
-// import profileStore from "./profileStore";
+import profileStore from "./profileStore";
 
 class UserAuthStore {
   user = null;
