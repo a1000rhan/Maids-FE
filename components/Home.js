@@ -2,8 +2,13 @@ import { Button } from "native-base";
 import React from "react";
 
 import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
+import profileStore from "../store/profileStore";
 
 const Home = ({ navigation }) => {
+  const handleClick = () => {
+    profileStore.fetchProfiles();
+    navigation.replace("List");
+  };
   return (
     <View style={styles.bg}>
       <SafeAreaView style={styles.container}>
@@ -14,7 +19,7 @@ const Home = ({ navigation }) => {
           style={{ width: 400, height: 400 }}
           source={require("../assets/clean.gif")}
         />
-        <Button style={styles.btn} onPress={() => navigation.replace("List")}>
+        <Button style={styles.btn} onPress={handleClick}>
           <Text style={styles.btnText}>Lets Start Cleaning</Text>
         </Button>
       </SafeAreaView>

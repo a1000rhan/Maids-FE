@@ -1,25 +1,36 @@
 import { makeAutoObservable } from "mobx";
-import api from "../api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "./api";
+import maidAuthStore from "./maidAuthStore";
 
 class ProfileStore {
-  profiles = null;
+  profiles = [];
   loading = true;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {});
   }
 
   fetchProfiles = async () => {
-    const res = await api.get("/profiles");
+    try {
+      const res = await api.get("/profiles");
+      this.profiles = res.data;
+
+      this.loading = false;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  updateProfile = async (profile) => {
+  updateProfile = async (profile, toast, navigation) => {
+    console.log(
+      "🚀 ~ file: profileStore.js ~ line 24 ~ ProfileStore ~ updateProfile= ~ profile",
+      profile
+    );
     try {
       const formData = new FormData();
 
       for (const key in profile) formData.append(key, profile[key]);
-
+      console.log(formData);
       const res = await api({
         method: "PUT",
         url: "/profiles",
@@ -29,15 +40,32 @@ class ProfileStore {
           return formData;
         },
       });
-    } catch (error) {
       console.log(
-        "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",
-        error
+        "🚀 ~ file: profileStore.js ~ line 43 ~ ProfileStore ~ updateProfile= ~ res",
+        res
       );
+      // maidAuthStore.profile = res.data;
+      const tempArr = this.profiles.filter((profile) =>
+        profile._id === res.data._id ? res.data : profile
+      );
+      this.profiles = tempArr;
+
+      // toast.show({
+      //   title: "Update Successfully",
+      //   status: "success",
+      // });
+      // navigation.navigate("Maids");
+      // this.fetchProfiles();
+    } catch (error) {
+      console.log(error);
+      toast.show({
+        title: "Update ",
+        status: "error",
+      });
     }
   };
 }
 
 const profileStore = new ProfileStore();
-
+profileStore.fetchProfiles();
 export default profileStore;

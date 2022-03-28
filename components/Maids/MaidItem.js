@@ -22,12 +22,12 @@ const MaidItem = ({ maid, navigation }) => {
         />
 
         <View>
-          <Text style={styles.username}>{maid.name}</Text>
+          <Text style={styles.username}>{maid.firstName}</Text>
           <Text style={styles.price}>{maid.price} KD / H</Text>
-          <Text style={styles.country}>
+          {/* <Text style={styles.country}>
             <Icon color="#6867AC" name="flag" />
             &nbsp;{maid.nationality}
-          </Text>
+          </Text> */}
         </View>
 
         <Button style={styles.btn}>Book</Button>

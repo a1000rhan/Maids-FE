@@ -14,26 +14,41 @@ import {
 } from "react-native";
 import { Chip } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
-import data from "../../data";
 import IconEdit from "react-native-vector-icons/Feather";
 import { TextInput } from "react-native-gesture-handler";
+import profileStore from "../../store/profileStore";
+import maidAuthStore from "../../store/maidAuthStore";
+import Loading from "../Loading";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const MaidProfile = ({ navigation }) => {
+  if (maidAuthStore.loading || profileStore.loading) return <Loading />;
+  const maidProfile = profileStore.profiles.find(
+    (profile) => profile.owner._id === maidAuthStore.maid._id
+  );
+
   const [edit, setEdit] = useState(false);
-  const [profile, setProfile] = useState(data[0]);
-  const [skill, setSkill] = useState(data[0].skills.toString());
+  const [profile, setProfile] = useState(maidProfile);
+  const [skill, setSkill] = useState(maidProfile.skills);
+  const [language, setLanguage] = useState(maidProfile.languages);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("dateTime");
   const [show, setShow] = useState(false);
+  let skills = [];
+  if (profile.skills) {
+    skills = profile.skills.map((skill) => (
+      <Chip style={styles.chip}>
+        <Text style={styles.chipText}>{skill}</Text>
+      </Chip>
+    ));
+  }
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
   };
-  console.log(date);
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
@@ -46,34 +61,38 @@ const MaidProfile = ({ navigation }) => {
   const showTimepicker = () => {
     showMode("time");
   };
-  const skills = profile.skills.map((skill) => (
-    <Chip style={styles.chip}>
-      <Text style={styles.chipText}>{skill}</Text>
-    </Chip>
-  ));
-  const languages = profile.languages.map((language) => (
-    <Chip style={styles.chip}>
-      <Text style={styles.chipText}>{language}</Text>
-    </Chip>
-  ));
-  const availability = profile.availability.map((availability) => (
-    <View style={styles.availTime}>
-      <Chip style={styles.chipDay}>
-        <Text style={styles.chipText}>{availability.day}</Text>
+  let languages = [];
+  if (profile.languages) {
+    languages = profile.languages.map((language) => (
+      <Chip style={styles.chip}>
+        <Text style={styles.chipText}>{language}</Text>
       </Chip>
-      <Chip style={styles.timeChip}>
-        <Text style={styles.timeText}>
-          {moment(availability.timeStart).format("HH:MM")}-
-          {moment(availability.timeEnd).format("HH:MM")}
-        </Text>
-      </Chip>
-    </View>
-  ));
+    ));
+  }
+  let availability = [];
+  if (profile.availability) {
+    availability = profile.availability.map((availability) => (
+      <View style={styles.availTime}>
+        <Chip style={styles.chipDay}>
+          <Text style={styles.chipText}>{availability.day}</Text>
+        </Chip>
+        <Chip style={styles.timeChip}>
+          <Text style={styles.timeText}>
+            {moment(availability.timeStart).format("HH:MM")}-
+            {moment(availability.timeEnd).format("HH:MM")}
+          </Text>
+        </Chip>
+      </View>
+    ));
+  }
   const handleName = (value) => {
-    setProfile({ ...profile, name: value });
+    setProfile({ ...profile, firstName: value });
   };
   const handleSkill = (value) => {
     setSkill(value);
+  };
+  const handleLanguage = (value) => {
+    setLanguage(value);
   };
   const handleAbout = (value) => {
     setProfile({ ...profile, about: value });
@@ -85,8 +104,13 @@ const MaidProfile = ({ navigation }) => {
     setProfile({ ...profile, price: value });
   };
   const handleSubmit = (value) => {
-    let tempArr = skill.split(",");
-    setProfile({ ...profile, skills: tempArr });
+    let updatedProfile = {
+      ...profile,
+      skills: skill.split(","),
+      languages: language.split(","),
+    };
+    setProfile(updatedProfile);
+    profileStore.updateProfile(updatedProfile);
     setEdit(false);
   };
   //   const handleSkills = (value) => {
@@ -124,11 +148,11 @@ const MaidProfile = ({ navigation }) => {
               <TextInput
                 style={styles.defaultSize}
                 multiline={true}
-                value={profile.name}
+                value={profile.firstName}
                 onChangeText={handleName}
               />
             ) : (
-              <Text style={styles.defaultSize}>{profile.name}</Text>
+              <Text style={styles.defaultSize}>{profile.firstName}</Text>
             )}
           </View>
           {edit ? (
@@ -152,7 +176,7 @@ const MaidProfile = ({ navigation }) => {
               <TextInput
                 style={styles.defaultSize}
                 multiline={true}
-                value={String(profile.price)}
+                value={profile.price.toString()}
                 onChangeText={handlePayment}
               />
             ) : (
@@ -171,12 +195,21 @@ const MaidProfile = ({ navigation }) => {
               onChangeText={handleSkill}
             />
           ) : (
-            <View style={styles.bubbles}>{skills}</View>
+            profile.skills && <View style={styles.bubbles}>{skills}</View>
           )}
         </HStack>
         <HStack style={styles.headLine}>
           <Text style={styles.profileProperty}>Language: </Text>
-          <View style={styles.bubbles}>{languages}</View>
+          {edit ? (
+            <TextInput
+              style={styles.inputText}
+              value={language}
+              multiline={true}
+              onChangeText={handleLanguage}
+            />
+          ) : (
+            <View style={styles.bubbles}>{languages}</View>
+          )}
         </HStack>
         <HStack style={styles.headLine}>
           <Text style={styles.profileProperty}>Experience (Years) : </Text>
@@ -185,7 +218,7 @@ const MaidProfile = ({ navigation }) => {
               <TextInput
                 style={styles.defaultSize}
                 multiline={true}
-                value={String(profile.experience)}
+                value={profile.experience ? profile.experience.toString() : ""}
                 onChangeText={handleExperience}
               />
             ) : (
@@ -247,7 +280,9 @@ const MaidProfile = ({ navigation }) => {
                 onChangeText={handleAbout}
               />
             ) : (
-              <Text style={styles.defaultSize}>{profile.about}</Text>
+              <View>
+                <Text style={styles.defaultSize}>{profile.about}</Text>
+              </View>
             )}
           </View>
         </View>

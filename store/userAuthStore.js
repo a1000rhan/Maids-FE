@@ -1,9 +1,11 @@
 import { makeAutoObservable } from "mobx";
 import decode from "jwt-decode";
-import api from "../api";
+import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import profileStore from "./profileStore";
 import { Toast } from "native-base";
+import bookStore from "./bookStore";
+import profileStore from "./profileStore";
 
 class UserAuthStore {
   user = null;
@@ -29,7 +31,13 @@ class UserAuthStore {
         status: "success",
       });
       navigation.navigate("Maids");
+<<<<<<< HEAD
     } catch (error) {}
+=======
+    } catch (error) {
+      console.log(error);
+    }
+>>>>>>> eb69a509f638bf13efd520f0ae31372db2121774
   };
 
   signUpUser = async (user, toast, navigation) => {
@@ -42,7 +50,13 @@ class UserAuthStore {
         status: "success",
       });
       navigation.navigate("Maids");
+<<<<<<< HEAD
     } catch (error) {}
+=======
+    } catch (error) {
+      console.log(error);
+    }
+>>>>>>> eb69a509f638bf13efd520f0ae31372db2121774
   };
 
   signOut = async () => {
@@ -58,6 +72,10 @@ class UserAuthStore {
       const exp = decode(token).exp;
       if (exp > currentTime) {
         this.setUser(token);
+        bookStore.fetchUserBookings();
+        profileStore.profiles.find(
+          (profile) => profile.owner._id === this.user._id
+        );
       } else {
         this.signOut();
       }

@@ -16,28 +16,29 @@ import { Chip } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import COLORS from "./color";
+import { observer } from "mobx-react";
+
 import data from "../../data";
 
-const NameSignUpMaid = ({ navigation, route }) => {
+const NameSignUpMaid = ({ navigation }) => {
   const toast = useToast();
 
   const [user, setUser] = useState({
-    username: route.params.user.username,
-    password: route.params.user.password,
-    email: route.params.user.email,
     firstName: "",
     lastName: "",
     civilId: "",
     nationality: "",
     languages: [],
+    skills: [],
     address: "",
   });
+
   //............Language....................
   const [language, setLanguage] = useState();
   const [newLanguage, setNewLanguage] = useState([]);
+
   const handelLanguageChange = (event) => {
-    const lang = event;
-    setLanguage(lang);
+    setLanguage(event);
   };
 
   //...Add Languages...
@@ -62,12 +63,12 @@ const NameSignUpMaid = ({ navigation, route }) => {
   const [newSkills, setNewSkills] = useState([]);
 
   const handelChangeSkill = (event) => {
-    const skill = event;
-    setSkills(skill);
+    setSkills(event);
   };
 
   const addNewSkill = () => {
     setNewSkills([...newSkills, skills]);
+    setSkills("");
   };
 
   const SkillsList = newSkills.map((skill, index) => (
@@ -75,12 +76,20 @@ const NameSignUpMaid = ({ navigation, route }) => {
       <Text style={styles.chipText}>{skill}</Text>
     </Chip>
   ));
-  //.............Submit...................
-  const handleSubmit = async () => {
-    setUser({ ...user, languages: newLanguage, skills: newSkills });
 
-    navigation.navigate("SkillsSignUpMaid", { user: user });
+  //.............Submit...................
+  const handleSubmit = () => {
+    let user2 = {
+      ...user,
+      languages: [...newLanguage],
+      skills: [...newSkills],
+    };
+    setUser(user2);
+    navigation.navigate("SkillsSignUpMaid", {
+      user: user2,
+    });
   };
+
   return (
     <ScrollView>
       <Center w="100%">
@@ -177,6 +186,8 @@ const NameSignUpMaid = ({ navigation, route }) => {
   );
 };
 
+export default observer(NameSignUpMaid);
+
 const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
@@ -223,4 +234,3 @@ const styles = StyleSheet.create({
   chipText: { color: "white", fontWeight: "bold" },
   icon: { width: 50, alignSelf: "flex-end" },
 });
-export default NameSignUpMaid;

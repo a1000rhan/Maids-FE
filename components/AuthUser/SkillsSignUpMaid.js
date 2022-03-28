@@ -17,25 +17,28 @@ import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Days from "./Days";
 import maidAuthStore from "../../store/maidAuthStore";
+import profileStore from "../../store/profileStore";
+import { observer } from "mobx-react";
 
 const SkillsSignUpMaid = ({ route, navigation }) => {
+  console.log(
+    "🚀 ~ file: SkillsSignUpMaid.js ~ line 24 ~ SkillsSignUpMaid ~ oute.params",
+    route.params
+  );
   const toast = useToast();
-  const [timePerid, setTimePerid] = useState("");
+
   const [uploadedImage, setUploadedImage] = useState(null);
   const [user, setUser] = useState({
-    username: route.params.user.username,
-    password: route.params.user.password,
-    email: route.params.user.email,
     firstName: route.params.user.firstName,
     lastName: route.params.user.lastName,
     civilId: route.params.user.civilId,
     nationality: route.params.user.nationality,
-    languages: route.params.user.languages,
-    price: 0,
+    languages: [route.params.user.languages],
+    price: 5,
     image: "",
-    availability: [{ day: [], time: "", endDate: "", startDate: "" }],
+    availability: [],
     experience: 0,
-    skill: [],
+    skill: [route.params.user.skills],
     address: "",
   });
   //.............Image Picker...............
@@ -58,16 +61,17 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
 
         const filename = localUri.split("/").pop();
         const match = /.(\w+)$/.exec(filename);
-        const image = {
+        const myImage = {
           uri: trimmedURI,
           name: filename,
           // type: result.type,
           // type: mime?.getType(trimmedURI),
-          type: match ? `image/${match[1]}` : image,
+          type: match ? `image/${match[1]}` : myImage.uri,
         };
 
         setUploadedImage(localUri);
-        setUser({ ...user, image: image });
+
+        setUser({ ...user, image: myImage });
       }
     } catch (error) {
       console.log(error);
@@ -90,9 +94,19 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     <Days myDay={myDay} setMyDay={setMyDay} item={item} key={index} />
   ));
 
+  const thedays = myDay.map((d) => [
+    {
+      day: d.day,
+      time: timePerid,
+      startDate: startDate,
+      endDate: endDate,
+    },
+  ]);
+
   //............Time..................
   const [TimeStart, setTimeStart] = useState(new Date());
   const [TimeEnd, setTimeEnd] = useState(new Date());
+  const [timePerid, setTimePerid] = useState("");
 
   const [modeTime, setModeTime] = useState("time");
 
@@ -109,19 +123,7 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
       )}`
     );
 
-    setUser({
-      ...user,
-      availability: [
-        {
-          day: myDay,
-          time: timePerid,
-          startDate: startDate,
-          endDate: endDate,
-        },
-      ],
-    });
-
-    maidAuthStore.signUpMaid(user);
+    profileStore.updateProfile(user, toast, navigation);
   };
   return (
     <Center w="100%">
@@ -166,7 +168,6 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
                   testID="dateTimePicker"
                   style={styles.picker}
                   value={TimeStart}
-                  style={{ flex: 1 }}
                   mode={modeTime}
                   onChange={(event, time) => setTimeStart(time)}
                 />
@@ -227,6 +228,8 @@ const SkillsSignUpMaid = ({ route, navigation }) => {
     </Center>
   );
 };
+export default observer(SkillsSignUpMaid);
+
 const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
@@ -292,4 +295,3 @@ const styles = StyleSheet.create({
     width: 80,
   },
 });
-export default SkillsSignUpMaid;

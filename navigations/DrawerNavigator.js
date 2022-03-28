@@ -22,6 +22,44 @@ const DrawerNavigator = () => {
     console.log("signedOut");
   };
 
+  const checkUser = () => {
+    if (!userAuthStore.user || !maidAuthStore.maid) {
+      return (
+        <>
+          <Drawer.Screen
+            options={{
+              drawerActiveBackgroundColor: "#E7E6FF",
+              drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+              headerTintColor: "white",
+              drawerLabel: "Sign Up",
+              headerTitle: "Sign Up",
+              headerStyle: {
+                backgroundColor: "#6867AC",
+              },
+              headerTitleStyle: { color: "white" },
+            }}
+            name="SignupUser"
+            component={SignupUser}
+          />
+          <Drawer.Screen
+            options={{
+              drawerActiveBackgroundColor: "#E7E6FF",
+              drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
+              headerTintColor: "white",
+              drawerLabel: "Sign In",
+              headerTitle: "Sign In",
+              headerStyle: {
+                backgroundColor: "#6867AC",
+              },
+              headerTitleStyle: { color: "white" },
+            }}
+            name="SignInUser"
+            component={SigninUser}
+          />
+        </>
+      );
+    }
+  };
   return (
     <Drawer.Navigator
       screenOptions={{}}
@@ -88,38 +126,7 @@ const DrawerNavigator = () => {
         name="Profile"
         component={MaidProfile}
       />
-      <>
-        <Drawer.Screen
-          options={{
-            drawerActiveBackgroundColor: "#E7E6FF",
-            drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-            headerTintColor: "white",
-            drawerLabel: "Sign Up",
-            headerTitle: "Sign Up",
-            headerStyle: {
-              backgroundColor: "#6867AC",
-            },
-            headerTitleStyle: { color: "white" },
-          }}
-          name="SignupUser"
-          component={SignupUser}
-        />
-        <Drawer.Screen
-          options={{
-            drawerActiveBackgroundColor: "#E7E6FF",
-            drawerLabelStyle: { color: "#6867AC", fontWeight: "bold" },
-            headerTintColor: "white",
-            drawerLabel: "Sign In",
-            headerTitle: "Sign In",
-            headerStyle: {
-              backgroundColor: "#6867AC",
-            },
-            headerTitleStyle: { color: "white" },
-          }}
-          name="SignInUser"
-          component={SigninUser}
-        />
-      </>
+      {checkUser()}
     </Drawer.Navigator>
   );
 };

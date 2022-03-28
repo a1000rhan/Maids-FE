@@ -9,19 +9,25 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import data from "../../data";
 import MaidItem from "./MaidItem";
 import Icon from "react-native-vector-icons/Ionicons";
+import profileStore from "../../store/profileStore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-
+import { observer } from "mobx-react";
+import Loading from "../Loading";
 const MaidsList = ({ navigation }) => {
   const [query, setQuery] = useState("");
-  const maidsArr = data
+  if (profileStore.loading) return <Loading />;
+  const maidsArr = profileStore.profiles
+    // .filter((maid) => maid.firstName && )
+    // maid.skills &&maid.lastName && maid.nationality
+    // maid.languages
+    // ()
     .filter(
       (maid) =>
-        maid.name.toLowerCase().includes(query.toLowerCase()) ||
+        maid.owner.username.toLowerCase().includes(query.toLowerCase()) ||
         maid.price.toString().includes(query)
     )
     .map((maid) => (
@@ -67,7 +73,7 @@ const MaidsList = ({ navigation }) => {
   );
 };
 
-export default MaidsList;
+export default observer(MaidsList);
 
 const styles = StyleSheet.create({
   header: {

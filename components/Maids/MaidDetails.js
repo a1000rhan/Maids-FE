@@ -10,7 +10,7 @@ import {
 import Icon from "react-native-vector-icons/Feather";
 
 import { Chip } from "react-native-paper";
-import { Avatar } from "native-base";
+import { Avatar, HStack } from "native-base";
 import moment from "moment";
 import { observer } from "mobx-react";
 
@@ -19,23 +19,22 @@ const windowHeight = Dimensions.get("window").height;
 
 const MaidDetails = ({ route, navigation }) => {
   const maid = route.params.maid;
-
   //languages List
-  const langArr = maid.languages.map((language) => (
-    <Chip style={styles.langBox}>
-      <Text style={styles.lang}>{language}</Text>
+  const langArr = maid.languages.map((language, index) => (
+    <Chip key={index} style={styles.chip}>
+      <Text style={styles.chipText}>{language}</Text>
     </Chip>
   ));
   //Skill List
-  const skills = maid.skills.map((skill) => (
-    <Chip style={styles.skillBox}>
-      <Text style={styles.skill}>{skill}</Text>
+  const skills = maid.skills.map((skill, index) => (
+    <Chip key={index} style={styles.chip}>
+      <Text style={styles.chipText}>{skill}</Text>
     </Chip>
   ));
 
   //Availability
-  const availability = maid.availability.map((ava) => (
-    <View style={styles.availableBox}>
+  const availability = maid.availability.map((ava, index) => (
+    <View key={index} style={styles.availableBox}>
       <Chip style={styles.availableDayBox}>
         <Text style={styles.days}>{ava.day}:</Text>
       </Chip>
@@ -50,16 +49,16 @@ const MaidDetails = ({ route, navigation }) => {
 
   return (
     <>
+      <Icon
+        style={styles.icon}
+        color={"white"}
+        name="arrow-left"
+        size={24}
+        onPress={() => navigation.goBack()}
+      />
       {/* header */}
       <View style={styles.header}>
-        <Icon
-          style={styles.icon}
-          color={"white"}
-          name="arrow-left"
-          size={22}
-          onPress={() => navigation.navigate("List")}
-        />
-        <View style={styles.details}>
+        <View style={styles.profile}>
           <Avatar
             source={{
               uri: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
@@ -69,14 +68,38 @@ const MaidDetails = ({ route, navigation }) => {
             m={10}
           />
 
-          <Text style={styles.title}>{maid.name}</Text>
+          <Text style={styles.title}>{maid.firstName}</Text>
         </View>
       </View>
 
       {/* body */}
 
       <ScrollView style={styles.scroll}>
-        <Text style={styles.titleSec}>Speaks</Text>
+        <HStack style={styles.headLine}>
+          <Text style={styles.profileProperty}>Maid's name:</Text>
+
+          <Text style={styles.propertyDetail}>
+            {`${maid.firstName} ${maid.lastName}`}{" "}
+          </Text>
+        </HStack>
+        <HStack style={styles.headLine}>
+          <Text style={styles.profileProperty}>Payment per hour:</Text>
+
+          <Text style={styles.propertyDetail}>{maid.price} KD</Text>
+        </HStack>
+        <HStack style={styles.headLine}>
+          <Text style={styles.profileProperty}>Speaks:</Text>
+
+          <View style={styles.bubbles}>{langArr}</View>
+        </HStack>
+
+        <HStack style={styles.headLine}>
+          <Text style={styles.profileProperty}>Experience:</Text>
+
+          <Text style={styles.propertyDetail}>{maid.experience}</Text>
+        </HStack>
+
+        {/* <Text style={styles.titleSec}>Speaks</Text>
         <View style={styles.bubbles}>{langArr}</View>
 
         <Text style={styles.titleSec}>Skills</Text>
@@ -92,7 +115,7 @@ const MaidDetails = ({ route, navigation }) => {
         <View style={styles.about}>
           <Text style={styles.titleSec}>About</Text>
           <Text style={styles.experienceTitle}>{maid.about}</Text>
-        </View>
+        </View> */}
       </ScrollView>
     </>
   );
@@ -106,17 +129,8 @@ const styles = StyleSheet.create({
     height: 230,
     borderRadius: 20,
     display: "flex",
-    justifyContent: "space-around",
 
     flexDirection: "row",
-  },
-  icon: { position: "absolute", marginTop: 50, marginLeft: 15, zIndex: 10 },
-
-  details: {
-    display: "flex",
-    flexDirection: "row",
-    marginTop: windowHeight / 9,
-    alignItems: "center",
   },
   title: {
     fontWeight: "bold",
@@ -124,10 +138,80 @@ const styles = StyleSheet.create({
     color: "white",
     marginRight: 100,
   },
-
-  scroll: {
-    backgroundColor: "#FFFAFC",
+  icon: {
+    marginTop: 40,
+    marginLeft: 15,
+    zIndex: 20,
+    position: "absolute",
   },
+  profile: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: windowHeight / 9,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  headLine: {
+    display: "flex",
+    width: "95%",
+    marginTop: 10,
+    marginLeft: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    backgroundColor: "#fff",
+    elevation: 8,
+    padding: 10,
+  },
+  profileProperty: { fontSize: 20, fontWeight: "bold" },
+  defaultSize: { fontSize: 20 },
+  propertyDetail: { flex: 1, marginLeft: 20, fontSize: 20 },
+  bubbles: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginLeft: 30,
+    flex: 1,
+  },
+  chip: {
+    backgroundColor: "#6867AC",
+    marginBottom: 5,
+    marginRight: 5,
+  },
+  chipDay: {
+    backgroundColor: "#6867AC",
+    marginBottom: 5,
+    marginRight: 5,
+    width: 60,
+  },
+  editIcon: { marginRight: 10 },
+  btn: { backgroundColor: "#6867AC" },
+  chipText: { color: "white", fontWeight: "bold" },
+  availTime: { display: "flex", flexDirection: "row" },
+  timeChip: {
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "#6867AC",
+    marginBottom: 10,
+    marginRight: 10,
+  },
+  timeText: { color: "black", fontSize: 15, fontWeight: "bold" },
+  inputText: { width: 300, fontSize: 15 },
+  // icon: { position: "absolute", marginTop: 50, marginLeft: 15, zIndex: 10 },
+  // title: {
+  //   fontWeight: "bold",
+  //   fontSize: 40,
+  //   color: "white",
+  //   marginRight: 100,
+  // },
+
+  // scroll: {
+  //   backgroundColor: "#FFFAFC",
+  // },
   bubbles: {
     display: "flex",
     flexDirection: "row",

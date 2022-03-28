@@ -22,12 +22,18 @@ function CustomDrawerContent(props) {
       return "Guest";
     }
   };
+
   const checkForLogout = () => {
     if (userAuthStore.user || maidAuthStore.maid) {
-      <Pressable style={styles.logout} onPress={() => userAuthStore.signOut()}>
-        <LogoutIcon size={22} color={COLORS.main} name="logout" />
-        <Text style={styles.logText}>Logout</Text>
-      </Pressable>;
+      return (
+        <Pressable
+          style={styles.logout}
+          onPress={() => userAuthStore.signOut()}
+        >
+          <LogoutIcon size={22} color={COLORS.main} name="logout" />
+          <Text style={styles.logText}>Logout</Text>
+        </Pressable>
+      );
     }
   };
 
@@ -57,7 +63,7 @@ function CustomDrawerContent(props) {
   );
 }
 
-export default observer(CustomDrawerContent);
+export default CustomDrawerContent;
 
 const styles = StyleSheet.create({
   user: {
