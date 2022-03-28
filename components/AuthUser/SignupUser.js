@@ -120,6 +120,9 @@ const SignupUser = ({ navigation }) => {
           <Button style={styles.btn} onPress={handleSubmit}>
             Next
           </Button>
+          <Button style={styles.btn} onPress={() => navigation.goBack()}>
+            Back
+          </Button>
           <HStack mt="6" justifyContent="center"></HStack>
         </VStack>
       </View>

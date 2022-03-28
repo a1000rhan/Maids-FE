@@ -3,11 +3,23 @@ import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigations/StackNavigator";
 import "react-native-gesture-handler";
+import * as Linking from "expo-linking";
 
 export default function App() {
+  const prefix = Linking.createURL("hh://");
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        ResetPassword: "reset",
+        SignupUser: "signup",
+      },
+    },
+  };
+
   return (
     <NativeBaseProvider>
-      <NavigationContainer>
+      <NavigationContainer linking={linking} fallback={<Text>Loading</Text>}>
         <StackNavigator />
       </NavigationContainer>
     </NativeBaseProvider>

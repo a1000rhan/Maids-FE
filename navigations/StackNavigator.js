@@ -5,10 +5,11 @@ import Home from "../components/Home";
 import MaidsList from "../components/Maids/MaidsList";
 import DrawerNavigator from "./DrawerNavigator";
 import MaidDetails from "../components/Maids/MaidDetails";
-
 import SkillsSignUpMaid from "../components/AuthUser/SkillsSignUpMaid";
 import NameSignUpMaid from "../components/AuthUser/NameSignUpMaid";
 import { observer } from "mobx-react";
+import ForgetPassword from "../components/AuthUser/ForgetPassword";
+import ResetPassword from "../components/AuthUser/ResetPassword";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -55,6 +56,16 @@ const StackNavigator = () => {
         }}
         name="SkillsSignUpMaid"
         component={SkillsSignUpMaid}
+      />
+      <Stack.Screen
+        name="ForgetPassword"
+        options={{ headerShown: false }}
+        component={ForgetPassword}
+      />
+      <Stack.Screen
+        name="ResetPassword"
+        options={{ headerShown: false }}
+        component={ResetPassword}
       />
     </Stack.Navigator>
   );

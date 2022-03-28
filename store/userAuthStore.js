@@ -3,6 +3,7 @@ import decode from "jwt-decode";
 import api from "../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import profileStore from "./profileStore";
+import { Toast } from "native-base";
 
 class UserAuthStore {
   user = null;
@@ -28,12 +29,7 @@ class UserAuthStore {
         status: "success",
       });
       navigation.navigate("Maids");
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 25 ~ AuthStore ~ signIn= ~ error",
-        error
-      );
-    }
+    } catch (error) {}
   };
 
   signUpUser = async (user, toast, navigation) => {
@@ -46,12 +42,7 @@ class UserAuthStore {
         status: "success",
       });
       navigation.navigate("Maids");
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 37 ~ AuthStore ~ signUp= ~ error",
-        error
-      );
-    }
+    } catch (error) {}
   };
 
   signOut = async () => {
@@ -72,6 +63,39 @@ class UserAuthStore {
       }
     } else {
       this.signOut();
+    }
+  };
+
+  forgotPassword = async (email) => {
+    try {
+      const resp = await api.put("/user/forgot-password", email);
+      Toast.show({
+        title: "Link has been sent",
+        status: "success",
+        description: "Please Check You Email ",
+      });
+    } catch (error) {
+      Toast.show({
+        title: "Something went wrong",
+        status: "error",
+        description: "Please fill in required data",
+      });
+    }
+  };
+  resetPassword = async (newPass, resetLink) => {
+    try {
+      const resp = await api.put("/reset-password", newPass, resetLink);
+      Toast.show({
+        title: "Your Password has been changed",
+        status: "success",
+        description: "Please login with your new password ",
+      });
+    } catch (error) {
+      Toast.show({
+        title: "Something went wrong",
+        status: "error",
+        description: "",
+      });
     }
   };
 }

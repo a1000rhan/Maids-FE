@@ -17,6 +17,11 @@ import CustomDrawerContent from "./CustomDrawerContent";
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  const handleSignOut = async () => {
+    await userAuthStore.signOut();
+    console.log("signedOut");
+  };
+
   return (
     <Drawer.Navigator
       screenOptions={{}}

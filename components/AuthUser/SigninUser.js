@@ -80,7 +80,28 @@ const SigninUser = ({ navigation }) => {
           <Button style={styles.btn} mt="2" onPress={handleSubmit}>
             Sign in
           </Button>
-          <HStack mt="6" justifyContent="center">
+          <VStack mt="6" justifyContent="center">
+            <Text
+              fontSize="sm"
+              color="coolGray.600"
+              _dark={{
+                color: "warmGray.200",
+                marginLeft: 5,
+              }}
+            >
+              New user ?{" "}
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 15,
+                  marginLeft: 5,
+                }}
+                onPress={() => navigation.navigate("SignupUser")}
+              >
+                Sign Up
+              </Text>
+            </Text>
+
             <Text
               fontSize="sm"
               color="coolGray.600"
@@ -88,18 +109,19 @@ const SigninUser = ({ navigation }) => {
                 color: "warmGray.200",
               }}
             >
-              I'm a new user.
+              Forgot Your Password ?{" "}
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 15,
+                  marginLeft: 5,
+                }}
+                onPress={() => navigation.navigate("ForgetPassword")}
+              >
+                Reset Password
+              </Text>
             </Text>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 15,
-              }}
-              onPress={() => navigation.navigate("SignupUser")}
-            >
-              Sign Up
-            </Text>
-          </HStack>
+          </VStack>
         </VStack>
       </View>
     </Center>
